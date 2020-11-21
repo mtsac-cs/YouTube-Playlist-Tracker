@@ -12,6 +12,7 @@ namespace GiveBack_Hackathon.Wpf
 
         #endregion
 
+
         #region Constructors
         public MainWindow()
         {
