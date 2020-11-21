@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Timers;
 using System.Windows;
-using System.Windows.Media.Animation;
-using GiveBack_Hackathon.Lib;
-using GiveBack_Hackathon.Wpf.UserControls;
 
 namespace GiveBack_Hackathon.Wpf
 {

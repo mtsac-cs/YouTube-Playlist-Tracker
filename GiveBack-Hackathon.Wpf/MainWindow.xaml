@@ -40,6 +40,12 @@
             </Grid>
         </materialDesign:ColorZone>
 
+        
+        <Grid x:Name="ContentGrid" Grid.Column="1" Grid.Row="1">
+            
+        </Grid>
+
+
         <Grid Grid.ColumnSpan="3" Grid.RowSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
