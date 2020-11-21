@@ -2,20 +2,17 @@
 
 namespace GiveBack_Hackathon.Lib
 {
-    public class Log
+    public class Logger
     {
         #region Properties
 
-        /// <summary>
-        /// Singleton instance of this class
-        /// </summary>
-        private static Log instance;
-        public static Log Instance
+        private static Logger instance;
+        public static Logger Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new Log();
+                    instance = new Logger();
 
                 return instance;
             }
@@ -48,7 +45,7 @@ namespace GiveBack_Hackathon.Lib
         /// Passes message to OnMessageLogged for Event Handling.
         /// </summary>
         /// <param name="text">Message to output to user</param>
-        public static void Output(string text)
+        public static void Log(string text)
         {
             LogEvents args = new LogEvents();
             args.Message = ">> " + text + Environment.NewLine;
