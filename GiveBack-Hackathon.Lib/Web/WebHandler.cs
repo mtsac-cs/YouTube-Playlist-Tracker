@@ -15,36 +15,39 @@ namespace GiveBack_Hackathon.Lib
         /// </summary>
         /// <param name="url">URL to get string of text from</param>
         /// <returns>String of text or nothing</returns>
-        public static string ReadText_FromURL(string url)
+        public string ReadText_FromURL(string url)
         {
             Guard.ThrowIfArgumentIsNull(url, "Can't read text from url. Url argument is null", "url");
-
-            WebClient client = new WebClient();
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            client.Headers.Add("user-agent", " Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-
-            string result = "";
+            var webClient = CreateWebClient();
+            
+            string downloadedText = "";
             string lastExeption = "";
             for (int i = 0; i <= 250; i++)
             {
                 try
                 {
-                    result = client.DownloadString(url);
-                    if (String.IsNullOrEmpty(result))
-                        continue;
-
-                    break;
+                    downloadedText = webClient.DownloadString(url);
+                    if (!String.IsNullOrEmpty(downloadedText))
+                        break;
                 }
                 catch (Exception e)
                 {
-                    if (e.Message != lastExeption)
-                    {
-                        Logger.Log(e.Message);
-                        lastExeption = e.Message;
-                    }
+                    if (e.Message == lastExeption)
+                        continue;
+
+                    Logger.Log(e.Message);
+                    lastExeption = e.Message;
                 }
             }
-            return result;
+            return downloadedText;
+        }
+
+        private WebClient CreateWebClient()
+        {
+            WebClient client = new WebClient();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            client.Headers.Add("user-agent", " Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+            return client;
         }
 
 
@@ -65,8 +68,8 @@ namespace GiveBack_Hackathon.Lib
             var client = new WebClient();
             for (int i = 0; i < 150; i++)
             {
-                try { client.DownloadFile(url, tempDest); break; }
-                catch { Thread.Sleep(50); }
+                try { client.DownloadFile(url, tempDest); break; } catch {}
+                Thread.Sleep(50);
             }
 
             CreateDownloadFolder(dest);
@@ -84,7 +87,7 @@ namespace GiveBack_Hackathon.Lib
         private string CreateTempDir()
         {
             string tempDir = Environment.CurrentDirectory + "\\temp";
-            Directory.CreateDirectory(tempDir); //creates dir if not found
+            Directory.CreateDirectory(tempDir);
             return tempDir;
         }
 

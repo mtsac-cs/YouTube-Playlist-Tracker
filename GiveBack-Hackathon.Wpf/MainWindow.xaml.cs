@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Timers;
+using System.Windows;
+using System.Windows.Media.Animation;
 using GiveBack_Hackathon.Lib;
+using GiveBack_Hackathon.Wpf.UserControls;
 
 namespace GiveBack_Hackathon.Wpf
 {
@@ -8,23 +12,20 @@ namespace GiveBack_Hackathon.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region Properties
-
-        #endregion
-
+        public static MainWindow instance;
 
         #region Constructors
         public MainWindow()
         {
             InitializeComponent();
-            Logger.MessageLogged += Logger_MessageLogged;
+            instance = this;
         }
         #endregion
 
-
-        private void Logger_MessageLogged(object sender, Logger.LogEvents e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            new Logger(); //Create new logger so the singleton can initialize
+            Logger.Log("Welcome to the YouTube Playlist Tracker");
         }
     }
 }

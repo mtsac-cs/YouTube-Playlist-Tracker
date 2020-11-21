@@ -78,6 +78,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="UserControls\Login_UserControl.xaml.cs">
       <DependentUpon>Login_UserControl.xaml</DependentUpon>
     </Compile>

@@ -14,7 +14,8 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}" WindowStartupLocation="CenterScreen" FontSize="16">
+        FontFamily="{DynamicResource MaterialDesignFont}" WindowStartupLocation="CenterScreen" FontSize="16" Loaded="Window_Loaded">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -38,6 +39,18 @@
                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right"/>
             </Grid>
         </materialDesign:ColorZone>
+
+        <Grid Grid.ColumnSpan="3" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="MsgPopupGrid" Grid.Row="1" Background="#FF31C7C0" HorizontalAlignment="Left" Visibility="Collapsed">
+                <Rectangle x:Name="rect" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="50"/>
+                <TextBlock x:Name="MsgText" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Message" FontSize="24"/>
+            </Grid>
+        </Grid>
         
     </Grid>
 </Window>

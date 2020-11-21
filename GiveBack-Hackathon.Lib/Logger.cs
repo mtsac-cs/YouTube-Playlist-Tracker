@@ -25,6 +25,7 @@ namespace GiveBack_Hackathon.Lib
         public class LogEvents : EventArgs
         {
             public string Message { get; set; }
+            public int MessageDisplayTime { get; set; }
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace GiveBack_Hackathon.Lib
         public static void Log(string text)
         {
             LogEvents args = new LogEvents();
-            args.Message = ">> " + text + Environment.NewLine;
+            args.Message = text;
             Instance.OnMessageLogged(args);
         }
     }
