@@ -32,10 +32,18 @@ namespace GiveBack_Hackathon.Wpf
         {
             new Logger(); //Create new logger so the singleton can initialize
             Logger.Log("Welcome to the YouTube Playlist Tracker");
+            CreateAPIFile();
+
 
             allPlaylists.LoadAllPlaylists();
         }
 
+        private void CreateAPIFile()
+        {
+            string path = YoutubeList.apiKeyFilePath;
+            if (!File.Exists(path))
+                File.Create(path);
+        }
         
         private void AddNewPlaylist_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -101,9 +109,12 @@ namespace GiveBack_Hackathon.Wpf
 
         private void AddPlaylistVideosToListBox(Playlist playlist)
         {
+            int i = 0;
             var videos = playlist.PlaylistVideos;
             foreach (var video in videos)
             {
+                i++;
+                video.IndexInPlaylist = i;
                 var listBoxItem = CreateVideoListboxItem(video);
                 playlistViewer.PlaylistViewer.Children.Add(listBoxItem);
             }

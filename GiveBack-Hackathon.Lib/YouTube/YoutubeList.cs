@@ -5,13 +5,15 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 
 namespace GiveBack_Hackathon.Lib.YouTube
 {
     public class YoutubeList
     {
         //Variable Declarations:
-        private const int videoListSize = 100;
+        public static string apiKeyFilePath = Environment.CurrentDirectory + "\\api.txt";
+        private const int videoListSize = 50;
         private string APIKey;
         private string playListID;
 
@@ -19,10 +21,22 @@ namespace GiveBack_Hackathon.Lib.YouTube
         public YoutubeList(string playListURL = "")
         {
             //Set API Key
-            APIKey = "";
+            APIKey = GetAPIKeyFromFile(apiKeyFilePath);
 
             //Set Playlist ID
             setPlayListURL(playListURL);
+        }
+
+        private string GetAPIKeyFromFile(string filePath)
+        {
+            if (String.IsNullOrEmpty(filePath))
+                throw new ArgumentException("Can't load APIKey from file because no filepath was specified", "filePath");
+
+            if (!File.Exists(filePath))
+                throw new ArgumentException("Can't load APIKey from File because the file doesn't exist", "filePath");
+
+            string fileText = File.ReadAllText(filePath);
+            return fileText;
         }
 
 
@@ -59,7 +73,6 @@ namespace GiveBack_Hackathon.Lib.YouTube
         }
 
         //API Call to get the current videos in the specifies playList
-        //private async Task<dynamic> GetVideosInPlaylistAsync(string playListId)
         private dynamic GetVideosInPlaylistAsync(string playListId)
         {
             //Dictionary Object
@@ -84,9 +97,7 @@ namespace GiveBack_Hackathon.Lib.YouTube
             //Create new Client Object to file request
             WebHandler webHandler = new WebHandler();
             var result = webHandler.ReadText_FromURL(fullUrl);
-            MessageBox.Show(result);
-            //var result = await new HttpClient().GetStringAsync(fullUrl);
-
+            
             //Run only if successful creation of client object
             if (result != null)
             {

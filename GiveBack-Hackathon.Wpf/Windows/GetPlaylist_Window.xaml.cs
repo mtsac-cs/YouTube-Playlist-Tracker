@@ -65,6 +65,9 @@ namespace GiveBack_Hackathon.Wpf.Windows
                 string testFile = Environment.CurrentDirectory + "\\test.text";
                 File.WriteAllLines(testFile, titles);
             });
+
+            t.IsBackground = true;
+            t.Start();
             
         }
     }
