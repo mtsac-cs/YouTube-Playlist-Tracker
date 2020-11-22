@@ -32,18 +32,10 @@ namespace YouTube_Playlist_Tracker.Wpf
         {
             new Logger(); //Create new logger so the singleton can initialize
             Logger.Log("Welcome to the YouTube Playlist Tracker");
-            CreateAPIFile();
-
-
             allPlaylists.LoadAllPlaylists();
         }
 
-        private void CreateAPIFile()
-        {
-            string path = YoutubeList.apiKeyFilePath;
-            if (!File.Exists(path))
-                File.Create(path);
-        }
+        
         
         private void AddNewPlaylist_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -76,7 +68,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             }
         }
 
-        private Playlist GetPlaylistFromTitle(string title)
+        private PlaylistInfo GetPlaylistFromTitle(string title)
         {
             if (string.IsNullOrEmpty(title))
                 throw new ArgumentException("Can't get playlist from title because title is null", "title");
@@ -85,13 +77,13 @@ namespace YouTube_Playlist_Tracker.Wpf
             return loadedPlaylist;
         }
 
-        public void AddPlaylistToListbox(Playlist playlist)
+        public void AddPlaylistToListbox(PlaylistInfo playlist)
         {
             var listBoxItem = CreatePlaylistListBoxItem(playlist);
             Playlist_ListBox.Items.Add(listBoxItem);
         }
 
-        private ListBoxItem CreatePlaylistListBoxItem(Playlist playlist)
+        private ListBoxItem CreatePlaylistListBoxItem(PlaylistInfo playlist)
         {
             const int sideMargin = 15;
             Button playlistButton = new Button();
@@ -107,7 +99,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             return item;
         }
 
-        private void AddPlaylistVideosToListBox(Playlist playlist)
+        private void AddPlaylistVideosToListBox(PlaylistInfo playlist)
         {
             int i = 0;
             var videos = playlist.PlaylistVideos;
@@ -120,7 +112,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             }
         }
 
-        private ListBoxItem CreateVideoListboxItem(YoutubeVideo video)
+        private ListBoxItem CreateVideoListboxItem(VideoInfo video)
         {
             var playlistItem = new PlaylistItem_UserControl();
             playlistItem.videoName = video.Title;

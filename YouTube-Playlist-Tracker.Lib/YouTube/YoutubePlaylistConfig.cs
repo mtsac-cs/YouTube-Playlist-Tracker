@@ -9,13 +9,11 @@
 namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
     using System;
-    using System.Collections.Generic;
-
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class YoutubeVideoApi
+    public partial class YoutubePlaylistConfig
     {
         [JsonProperty("kind")]
         public string Kind { get; set; }
@@ -123,14 +121,14 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
         public long ResultsPerPage { get; set; }
     }
 
-    public partial class YoutubeVideoApi
+    public partial class YoutubePlaylistConfig
     {
-        public static YoutubeVideoApi FromJson(string json) => JsonConvert.DeserializeObject<YoutubeVideoApi>(json, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
+        public static YoutubePlaylistConfig FromJson(string json) => JsonConvert.DeserializeObject<YoutubePlaylistConfig>(json, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this YoutubeVideoApi self) => JsonConvert.SerializeObject(self, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
+        public static string ToJson(this YoutubePlaylistConfig self) => JsonConvert.SerializeObject(self, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
     }
 
     internal static class Converter

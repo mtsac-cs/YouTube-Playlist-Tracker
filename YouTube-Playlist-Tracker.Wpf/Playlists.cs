@@ -10,26 +10,26 @@ namespace YouTube_Playlist_Tracker.Wpf
 {
     public class Playlists
     {
-        public string playlistDir = Playlist.playlistDir;
-        public List<Playlist> allPlaylists;
+        public string playlistDir = PlaylistInfo.playlistDir;
+        public List<PlaylistInfo> allPlaylists;
         public Playlists()
         {
             Directory.CreateDirectory(playlistDir);
         }
 
-        public static Playlist GetPlaylistFromPath(string fileName)
+        public static PlaylistInfo GetPlaylistFromPath(string fileName)
         {
             if (!fileName.ToLower().EndsWith(".json"))
                 fileName += ".json";
 
-            string path = (Playlist.playlistDir + "//" + fileName).Replace("//","\\");
+            string path = (PlaylistInfo.playlistDir + "//" + fileName).Replace("//","\\");
             if (String.IsNullOrEmpty(path))
                 throw new ArgumentException("Can't get playlist from file, fileName is invalid. fileName: " + path, "path");
 
             if (!File.Exists(path))
                 throw new ArgumentException("Can't get playlist from file, file doesn't exist. Path: " + path, "path");
 
-            Playlist loadedPlaylist = new Playlist(fileName);
+            PlaylistInfo loadedPlaylist = new PlaylistInfo(fileName);
             return loadedPlaylist;
         }
 
@@ -40,7 +40,7 @@ namespace YouTube_Playlist_Tracker.Wpf
 
             foreach (var item in playlistFiles)
             {
-                Playlist p = new Playlist(item.Name);
+                PlaylistInfo p = new PlaylistInfo(item.Name);
                 AddPlaylist(p);
             }
         }
@@ -58,7 +58,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             return true;
         }
 
-        public void AddPlaylist(Playlist playlist)
+        public void AddPlaylist(PlaylistInfo playlist)
         {
             MainWindow.instance.AddPlaylistToListbox(playlist);
         }

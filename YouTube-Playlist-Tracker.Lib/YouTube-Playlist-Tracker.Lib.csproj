@@ -52,10 +52,10 @@
     <Compile Include="Web\GitApi.cs" />
     <Compile Include="Web\UpdateHandler.cs" />
     <Compile Include="Web\WebHandler.cs" />
-    <Compile Include="YouTube\Playlist.cs" />
-    <Compile Include="YouTube\YoutubeVideo.cs" />
-    <Compile Include="YouTube\YoutubeList.cs" />
-    <Compile Include="YouTube\YoutubeVideoAPI.cs" />
+    <Compile Include="YouTube\PlaylistInfo.cs" />
+    <Compile Include="YouTube\VideoInfo.cs" />
+    <Compile Include="YouTube\YoutubePlaylistAPI.cs" />
+    <Compile Include="YouTube\YoutubePlaylistConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

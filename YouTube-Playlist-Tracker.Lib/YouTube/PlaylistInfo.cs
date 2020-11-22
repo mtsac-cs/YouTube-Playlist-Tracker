@@ -5,38 +5,36 @@ using System.IO;
 
 namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
-    public class Playlist
+    public class PlaylistInfo
     {
-        public static string playlistDir = Environment.CurrentDirectory + "\\playlist data";
         private string fileName;
         public string playlistName;
-        public List<YoutubeVideo> PlaylistVideos { get; set; } = new List<YoutubeVideo>();
+        public string playlistID;
+        public List<VideoInfo> PlaylistVideos = new List<VideoInfo>();
+        public static string playlistDir = Environment.CurrentDirectory + "\\playlist data";
 
-        public Playlist(string fileName, bool useFullpath = false)
+        #region Constructors
+        internal PlaylistInfo()
         {
-            //will impliment later. For now you have to use file name's with predetermiend path, rather than custom paths
-            /*if (useFullpath)
-            {
-                if (!File.Exists(fileName))
-                    throw new ArgumentException("Tried loading a playlist file that doesn't exist. Path: " + fileName, "fileName");
 
-                FileInfo f = new FileInfo(fileName);
-                fileName = f.Name;
-            }*/
+        }
 
+        public PlaylistInfo(string fileName)
+        {
             this.fileName = fileName;
 
             var loadedPlaylist = LoadFromFile();
             if (loadedPlaylist is null)
                 return;
 
-            
             playlistName = loadedPlaylist.playlistName;
             PlaylistVideos = loadedPlaylist.PlaylistVideos;
         }
+        #endregion
 
-        private Playlist LoadFromFile() => LoadFromFile(playlistDir + "//" + fileName);
-        private Playlist LoadFromFile(string filePath)
+
+        public PlaylistInfo LoadFromFile() => LoadFromFile(playlistDir + "//" + fileName);
+        public PlaylistInfo LoadFromFile(string filePath)
         {
             if (!IsPathValid(filePath))
                 return null;
@@ -45,10 +43,8 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
             if (String.IsNullOrEmpty(json))
                 return null;
 
-            return JsonConvert.DeserializeObject<Playlist>(json);
+            return JsonConvert.DeserializeObject<PlaylistInfo>(json);
         }
-        
-        
 
         private bool IsPathValid(string filePath)
         {
@@ -59,9 +55,11 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
             return true;
         }
 
-
         public void SaveToFile()
         {
+            if (!fileName.EndsWith(".json"))
+                fileName += ".json";
+
             string savePath = playlistDir + "//" + fileName;
             Guard.ThrowIfArgumentIsNull(savePath, "Can't save playlist to file, save path is null", "savePath");
             CreateDirIfNotFound(savePath);
@@ -76,6 +74,20 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
         {
             FileInfo f = new FileInfo(dir);
             Directory.CreateDirectory(f.Directory.FullName);
+        }
+
+
+        public void GetPlaylistFromYoutube(string url)
+        {
+            YoutubePlaylistAPI video = new YoutubePlaylistAPI(url);
+
+            var playlist = video.GetPlaylistInfo();
+            if (playlist is null)
+                return;
+
+            playlistID = playlist.playlistID;
+            PlaylistVideos = playlist.PlaylistVideos;
+            SaveToFile();
         }
     }
 }
