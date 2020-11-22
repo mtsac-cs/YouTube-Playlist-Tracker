@@ -50,9 +50,12 @@
     <Compile Include="Web\GitApi.cs" />
     <Compile Include="Web\UpdateHandler.cs" />
     <Compile Include="Web\WebHandler.cs" />
+    <Compile Include="YouTube\Playlist.cs" />
+    <Compile Include="YouTube\YoutubeVideo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

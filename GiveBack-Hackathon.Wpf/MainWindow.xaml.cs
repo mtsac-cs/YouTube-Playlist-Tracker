@@ -1,10 +1,7 @@
-﻿using GiveBack_Hackathon.Wpf.UserControls;
-using System;
-using System.Collections.Generic;
-using System.Timers;
+﻿using GiveBack_Hackathon.Lib.YouTube;
+using GiveBack_Hackathon.Wpf.UserControls;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace GiveBack_Hackathon.Wpf
 {
@@ -28,15 +25,11 @@ namespace GiveBack_Hackathon.Wpf
         {
             new Logger(); //Create new logger so the singleton can initialize
             Logger.Log("Welcome to the YouTube Playlist Tracker");
-
-            
-
-            
-            
         }
 
         private void ToolbarButton1_Click(object sender, RoutedEventArgs e)
         {
+            TestPlaylist();
             if (playlistViewer is null)
             {
                 playlistViewer = new PlaylistViewer_UserControl();
@@ -74,6 +67,13 @@ namespace GiveBack_Hackathon.Wpf
                 item.Content = video;
                 viewer.Children.Add(item);
             }
+        }
+
+        private void TestPlaylist()
+        {
+            Playlist playlist = new Playlist();
+            playlist = playlist.LoadFromFile(Playlist.playlistDir + "\\test.json");
+            Logger.Log(playlist.PlaylistVideos[0].Title);
         }
     }
 }
