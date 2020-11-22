@@ -73,7 +73,8 @@ namespace GiveBack_Hackathon.Lib.YouTube
         }
 
         //API Call to get the current videos in the specifies playList
-        private dynamic GetVideosInPlaylistAsync(string playListId)
+        //private dynamic GetVideosInPlaylistAsync(string playListId)
+        private YoutubeVideoApi GetVideosInPlaylistAsync(string playListId)
         {
             //Dictionary Object
             var parameters = new Dictionary<string, string>
@@ -85,7 +86,8 @@ namespace GiveBack_Hackathon.Lib.YouTube
                 //Get only the info in this part
                 ["part"] = "snippet",
                 //get on the info in this feild for this part
-                ["fields"] = "pageInfo, items/snippet(title)",
+                //["fields"] = "pageInfo, items/snippet(title)",
+                //["fields"] = "pageInfo, items/snippet(title)",
                 //Max number of video you can pull
                 ["maxResults"] = videoListSize.ToString()
             };
@@ -101,16 +103,43 @@ namespace GiveBack_Hackathon.Lib.YouTube
             //Run only if successful creation of client object
             if (result != null)
             {
+                /*string filePath = Environment.CurrentDirectory + "\\WriteFile.txt";
+                string content = result;
+                using (StreamWriter outputFile = new StreamWriter(filePath))
+                {
+                    outputFile.WriteLine(content);
+                }*/
+
+                var parsedJson = YoutubeVideoApi.FromJson(result);
+                return parsedJson;
                 //Deserialize - convert strings to data types
-                return JsonConvert.DeserializeObject(result);
+                //return JsonConvert.DeserializeObject(result);
             }
 
             //return
             return default(dynamic);
         }
 
+        public List<YoutubeVideo> getTitleList()
+        {
+            var youtubePlaylist = GetVideosInPlaylistAsync(playListID);
+
+            List<string> titles = new List<string>();
+            List<YoutubeVideo> videos = new List<YoutubeVideo>();
+            foreach (var item in youtubePlaylist.Items)
+            {
+                YoutubeVideo video = new YoutubeVideo();
+                video.Title = item.Snippet.Title;
+                video.IndexInPlaylist = (int)item.Snippet.Position;
+                video.ParentPlaylist = item.Id;
+                videos.Add(video);
+            }
+
+            return videos;
+        }
+
         //Get the string array holding all of the video titles
-        public string[] getTitleList()
+        /*public string[] getTitleList()
         {
             //Get the videos in the playlist
             var result = GetVideosInPlaylistAsync(playListID).Result;
@@ -134,7 +163,7 @@ namespace GiveBack_Hackathon.Lib.YouTube
 
             //return the Video List
             return videoList;
-        }
+        }*/
 
         //Make a url with a query
         private string MakeUrlWithQuery(string baseUrl,

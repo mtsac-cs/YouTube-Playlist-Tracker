@@ -61,14 +61,14 @@ namespace GiveBack_Hackathon.Wpf.Windows
             Thread t = new Thread(() => 
             {
                 var titles = video.getTitleList();
-
-                string testFile = Environment.CurrentDirectory + "\\test.text";
-                File.WriteAllLines(testFile, titles);
+                
+                Playlist p = new Playlist("new saving.json");
+                p.PlaylistVideos = titles;
+                p.SaveToFile();
             });
 
             t.IsBackground = true;
             t.Start();
-            
         }
     }
 }
