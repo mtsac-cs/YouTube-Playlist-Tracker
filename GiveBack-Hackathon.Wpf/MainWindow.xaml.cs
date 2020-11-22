@@ -28,10 +28,8 @@ namespace GiveBack_Hackathon.Wpf
         {
             new Logger(); //Create new logger so the singleton can initialize
             Logger.Log("Welcome to the YouTube Playlist Tracker");
-            
 
-            
-            
+          
         }
 
         private void ToolbarButton1_Click(object sender, RoutedEventArgs e)
@@ -64,9 +62,9 @@ namespace GiveBack_Hackathon.Wpf
             {
                 var video = new PlaylistItem_UserControl();
                 video.videoName = i.ToString();
-                video.index = i;
+                video.index = (i + 1);                // Incrementing it by 1 fixes 0 base indeing for the user 
                 video.Width = ContentGrid.ActualWidth;
-                video.Height = ContentGrid.ActualHeight / 10;
+                video.Height = (ContentGrid.ActualHeight / 10);
 
                 ListBoxItem item = new ListBoxItem();
                 item.Padding = new Thickness(15, 3, 0, 0);
@@ -74,21 +72,5 @@ namespace GiveBack_Hackathon.Wpf
                 viewer.Children.Add(item);
             }
         }
-
-        private void AddPlaylistButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-
-
-        }
-
-        private void TutorialButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-
-
-
-        }
-
     }
 }

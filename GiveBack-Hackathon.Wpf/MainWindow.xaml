@@ -30,7 +30,7 @@
 
         
 
-        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF673AB7">
             <Grid x:Name="Toolbar">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
@@ -46,18 +46,14 @@
 
         
         <Grid x:Name="ContentGrid" Grid.Column="1" Grid.Row="1" Margin="0,0.4,47.8,44">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="403*"/>
+                <ColumnDefinition Width="607*"/>
+            </Grid.ColumnDefinitions>
 
-            
-            
-            <Button Name="btn2" Background="BlueViolet" BorderBrush="Black" BorderThickness="1"
-                    Click="TutorialButton_Click" ClickMode="Press" Margin="175,249,175,218" Height="Auto">
-                Tutorial
-            </Button>
-            
-            <Button Name="btn3" Background="BlueViolet" BorderBrush="Black" BorderThickness="1"
-                    Click="AddPlaylistButton_Click" ClickMode="Press" Margin="175,379,175,89" Height="Auto">
-                Add Playlist
-            </Button>
+
+
+
 
         </Grid>
 
