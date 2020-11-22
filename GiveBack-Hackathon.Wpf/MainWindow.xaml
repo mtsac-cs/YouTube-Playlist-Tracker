@@ -29,7 +29,7 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="43" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="43" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Red">
             <Grid x:Name="Toolbar">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
