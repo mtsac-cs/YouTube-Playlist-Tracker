@@ -25,7 +25,7 @@
 
         <TextBlock Text="Enter URL Playlist Below" TextAlignment="Center" FontSize="20px" FontWeight="Bold" 
                Margin="258,51,270.6,339" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
-               Background="#FF673AB7" Width="265" Foreground="#DDFFFFFF" Height="30"/>
+               Background="#FF736C83" Width="265" Foreground="#DDFFFFFF" Height="30"/>
 
 
 
@@ -38,8 +38,8 @@
                  Margin="181,152,194.6,226" Height="42" BorderBrush="Black" BorderThickness="2" Background="White"></TextBox>
 
         <!-- The following line works represents the button -->
-        <Button Content="Search" HorizontalAlignment="Left" Margin="274,328,0,0" VerticalAlignment="Top" 
+        <Button Content="Search" HorizontalAlignment="Left" Margin="271,327,0,0" VerticalAlignment="Top" 
                 FontFamily="Cambria" FontSize ="20px" FontWeight="Bold" Width="234" Height="31" Click="Button_Click" 
-                BorderBrush="White" BorderThickness="2"/>
+                BorderBrush="White" BorderThickness="2" Background="#FF736C83"/>
     </Grid>
 </Window>
