@@ -15,5 +15,12 @@ namespace GiveBack_Hackathon.Lib
                 throw new ArgumentNullException(message, argumentName);
             }
         }
+
+
+        public static void ThrowIfStringNullOrEmpty(string str, string message)
+        {
+            if (String.IsNullOrEmpty(str))
+                throw new Exception(message);
+        }
     }
 }

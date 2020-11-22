@@ -1,5 +1,6 @@
 ﻿using GiveBack_Hackathon.Lib.YouTube;
 using GiveBack_Hackathon.Wpf.UserControls;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -56,9 +57,8 @@ namespace GiveBack_Hackathon.Wpf
         {
             var viewer = playlistViewer.PlaylistViewer;
 
-            Playlist playlist = new Playlist();
-            playlist = playlist.LoadFromFile(Playlist.playlistDir + "\\test.json");
-            
+            Playlist playlist = new Playlist("test.json");
+            //playlist.SaveToFile();
 
             for (int i = 0; i < playlist.PlaylistVideos.Count; i++)
             {
@@ -68,6 +68,8 @@ namespace GiveBack_Hackathon.Wpf
                 video.Width = ContentGrid.ActualWidth;
                 video.Height = ContentGrid.ActualHeight / 10;
 
+                
+
                 ListBoxItem item = new ListBoxItem();
                 //item.Padding = new Thickness(15, 3, 0, 0);
                 item.Content = video;
@@ -75,6 +77,10 @@ namespace GiveBack_Hackathon.Wpf
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="num">num equals some random shit</param>
         private void CreateFakePlaylists()
         {
             const int numFakePlaylists = 5;
@@ -82,8 +88,10 @@ namespace GiveBack_Hackathon.Wpf
             {
                 Button playlistButton = new Button();
                 playlistButton.Width = Playlist_ListBox.ActualWidth - 15;
-                playlistButton.Background = Brushes.Orange;
-                playlistButton.Foreground = Brushes.Black;
+
+                
+                //playlistButton.Background = Brushes.
+                //playlistButton.Foreground = Brushes.Black;
 
                 playlistButton.Content = i.ToString();
                 
