@@ -20,24 +20,26 @@
     </Window.Resources>
 
     <Grid Background="#FF464646">
-        
+
         <!-- Commented out grid columns -->
 
         <TextBlock Text="Enter URL Playlist Below" TextAlignment="Center" FontSize="20px" FontWeight="Bold" 
-               Margin="274,58,285.6,338" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
-               Background="#FF673AB7" Width="234" Foreground="#DDFFFFFF" Height="24"/>
+               Margin="258,51,270.6,339" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
+               Background="#FF673AB7" Width="265" Foreground="#DDFFFFFF" Height="30"/>
 
-        
-        
-        <StackPanel Margin="73,152,10.2,185" Grid.Column="1">
-            <TextBlock Margin="5" Text="Input Box:" FontSize="20px" FontWeight="Bold" 
+
+
+        <StackPanel Margin="342,111,342,226">
+            <TextBlock Margin="4,5,5.4,5" Text="Input Box" FontSize="20px" FontWeight="Bold" 
                        FontFamily="Cambria" Foreground="#DDFFFFFF"/>
         </StackPanel>
-        
+
+        <TextBox x:Name="MainTextBox" Width="418" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                 Margin="181,152,194.6,226" Height="42" BorderBrush="Black" BorderThickness="2" Background="White"></TextBox>
+
         <!-- The following line works represents the button -->
-        <Button Content="Button" HorizontalAlignment="Left" Margin="274,328,0,0" VerticalAlignment="Top" 
+        <Button Content="Search" HorizontalAlignment="Left" Margin="274,328,0,0" VerticalAlignment="Top" 
                 FontFamily="Cambria" FontSize ="20px" FontWeight="Bold" Width="234" Height="31" Click="Button_Click" 
                 BorderBrush="White" BorderThickness="2"/>
-        
     </Grid>
 </Window>
