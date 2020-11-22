@@ -98,10 +98,15 @@ namespace GiveBack_Hackathon.Wpf
         private void HideMsgPopup(object sender, ElapsedEventArgs e)
         {
             var main = MainWindow.instance;
-            main.Dispatcher.Invoke(() =>
+            try
             {
-                main.MsgPopupGrid.BeginAnimation(MainWindow.WidthProperty, hidePopupAnim);
-            });
+                main.Dispatcher.Invoke(() =>
+                {
+                    main.MsgPopupGrid.BeginAnimation(MainWindow.WidthProperty, hidePopupAnim);
+                });
+            }
+            catch (Exception)
+            { }
 
             var originalTimer = sender as Timer;
             originalTimer.Dispose();
