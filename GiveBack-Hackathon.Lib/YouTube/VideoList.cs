@@ -7,102 +7,135 @@ using System.Threading.Tasks;
 
 namespace GiveBack_Hackathon.Lib.YouTube
 {
-    public class Program
+    class YoutubeList
     {
+        //Variable Declarations:
+        private const int videoListSize = 100;
+        private string APIKey;
+        private string playListID;
 
-        public void Main(string[] args)
+        //Function Definitions:
+        public YoutubeList(string playListURL = "")
         {
-            var id1 = "PLw6eTMMKY24QLYfmrU2rB8x-lP5Fas2dY";
+            //Set API Key
+            APIKey = "";
 
-            try
+            //Set Playlist ID
+            this.playListID = playListURL;
+        }
+
+
+        //Get the PlayList ID from its corrisponding URL
+        private string obtainID(string url)
+        {
+            //PlayList ID is everything after the equal sign
+            for (int i = 0; i < url.Length; i++)
             {
-                var len = id1?.Length;
-
-                if (len == null | len.Value == 0)
+                if (url[i] == '=')
                 {
-                    PrintHelp();
-                    return;
+                    //return the ID
+                    return url.Substring(i + 1);
                 }
-
-                var playlistId = id1;
-
-                var result = GetVideosInPlaylistAsync(playlistId).Result;
-
-                PrintResults(result);
-
-            }
-            catch (AggregateException agg)
-            {
-                foreach (var e in agg.Flatten().InnerExceptions)
-                    Console.WriteLine(e.Message);
             }
 
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            Console.ReadKey();
-        }
-        private static void PrintHelp()
-        {
-            Console.WriteLine("This program lists all video names in the specified YouTube playlist Id.");
-            Console.WriteLine("USAGE: VideoList.exe {PlayListId}");
+            //return the ID
+            return url;
         }
 
-
-        private static void PrintResults(dynamic result)
+        //set the PlayList ID from an input playList URL
+        public void setPlayListURL(string url)
         {
-            var count = result.items.Count;
-            Console.WriteLine($"Total items in playlist: {result.pageInfo.totalResults,2}");
-            Console.WriteLine($"Public items in playlist: {count,2}");
-            Console.WriteLine("-----------------------------------------------------");
-
-            var i = 0;
-
-            if (count > 0)
-                foreach (var item in result.items)
-                    Console.WriteLine(string.Format($"{++i,3}) {item.snippet.title}"));
+            //store the ID from the provided url
+            playListID = obtainID(url);
+            return;
         }
 
-
-        private static async Task<dynamic> GetVideosInPlaylistAsync(string playListId)
+        //Print out help for the user
+        private void PrintHelp()
         {
+            //Output Messages
+            Logger.Log("This program lists all video names in the specified YouTube playlist.");
+            Logger.Log("USAGE: Please Enter A Valid Youtube PlayList Link");
+        }
+
+        //API Call to get the current videos in the specifies playList
+        private async Task<dynamic> GetVideosInPlaylistAsync(string playListId)
+        {
+            //Dictionary Object
             var parameters = new Dictionary<string, string>
             {
-                ["key"] = "AIzaSyCU2gO1WLiZ-3T9BGZ_A0Tej3lbhO6WWyQ",
+                //Store API Key
+                ["key"] = APIKey,
+                //Store the Playlisy ID
                 ["playlistId"] = playListId,
+                //Get only the info in this part
                 ["part"] = "snippet",
-                ["fields"] = "pageInfo, items/snippet(title, description)",
-                ["maxResults"] = "50"
+                //get on the info in this feild for this part
+                ["fields"] = "pageInfo, items/snippet(title)",
+                //Max number of video you can pull
+                ["maxResults"] = videoListSize.ToString()
             };
 
+            //Create URL
             var baseUrl = "https://www.googleapis.com/youtube/v3/playlistItems?";
             var fullUrl = MakeUrlWithQuery(baseUrl, parameters);
 
+            //Create new Client Object to file request
             var result = await new HttpClient().GetStringAsync(fullUrl);
 
+            //Run only if successful creation of client object
             if (result != null)
             {
+                //Deserialize - convert strings to data types
                 return JsonConvert.DeserializeObject(result);
             }
 
+            //return
             return default(dynamic);
         }
 
+        //Get the string array holding all of the video titles
+        public string[] getTitleList()
+        {
+            //Get the videos in the playlist
+            var result = GetVideosInPlaylistAsync(playListID).Result;
+            string[] videoList = new string[videoListSize];
 
-        private static string MakeUrlWithQuery(string baseUrl,
+            //Get count and output value to the user
+            var count = result.items.Count;
+            Logger.Log($"Total items in playlist: {result.pageInfo.totalResults,2}");
+            Logger.Log($"Public items in playlist: {count,2}");
+
+            //Check to see if at least one video was found
+            var i = 0;
+            if (count > 0)
+            {
+                //loop through each element in the playlist
+                foreach (var item in result.items)
+                {
+                    videoList[i] = $"{item.snippet.title}";
+                }
+            }
+
+            //return the Video List
+            return videoList;
+        }
+
+        //Make a url with a query
+        private string MakeUrlWithQuery(string baseUrl,
             IEnumerable<KeyValuePair<string, string>> parameters)
         {
+            //null string case
             if (string.IsNullOrEmpty(baseUrl))
                 throw new ArgumentNullException(nameof(baseUrl));
 
+            //Empty string case
             if (parameters == null || parameters.Count() == 0)
                 return baseUrl;
 
+            //Return the full Url
             return parameters.Aggregate(baseUrl,
                 (accumulated, kvp) => string.Format($"{accumulated}{kvp.Key}={kvp.Value}&"));
         }
-
     }
 }
