@@ -39,8 +39,9 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PopupBox x:Name="MaterialPopup" Grid.Column="2" PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right"/>
-
-                <Button Grid.Column="1" x:Name="ToolbarButton1" Content="Button1" Background="#FF2E273A" Click="ToolbarButton1_Click"/>
+                
+                <Button Grid.Column="1" x:Name="ToolbarButton1" Content="Button1" Background="#FF2E273A" Click="ToolbarButton1_Click" Margin=" 0,0,7,0"/>
+                <Button Grid.Column="2" x:Name="AddPlaylist_Button" Content="Add a playlist" Background="#FF2E273A" Click="ToolbarButton1_Click" Margin=" 0,0,7,0"/>
             </Grid>
         </materialDesign:ColorZone>
 
