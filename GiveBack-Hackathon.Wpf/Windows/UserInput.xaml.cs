@@ -23,5 +23,10 @@ namespace GiveBack_Hackathon.Wpf.Windows
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

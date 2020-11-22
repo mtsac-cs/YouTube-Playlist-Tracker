@@ -12,26 +12,32 @@
             <Setter Property="BorderBrush" Value="White" />
             <Setter Property="BorderThickness" Value="2" />
         </Style>
+        <Style x:Key="notCalledBorder" TargetType="{x:Type Border}">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Black" />
+        </Style>
+
     </Window.Resources>
 
     <Grid Background="#FF464646">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="64*"/>
-            <ColumnDefinition Width="171*"/>
-            <ColumnDefinition Width="558*"/>
-        </Grid.ColumnDefinitions>
+        
+        <!-- Commented out grid columns -->
 
         <TextBlock Text="Enter URL Playlist Below" TextAlignment="Center" FontSize="20px" FontWeight="Bold" 
-               Margin="45.8,48,278.6,348" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
-               Background="#FF673AB7" Width="234" Foreground="#DDFFFFFF" Grid.Column="2">
-        </TextBlock>
+               Margin="274,58,285.6,338" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
+               Background="#FF673AB7" Width="234" Foreground="#DDFFFFFF" Height="24"/>
 
-        <StackPanel Margin="73.02,152,125.6,185" Grid.ColumnSpan="2" Grid.Column="1">
+        
+        
+        <StackPanel Margin="73,152,10.2,185" Grid.Column="1">
             <TextBlock Margin="5" Text="Input Box:" FontSize="20px" FontWeight="Bold" 
                        FontFamily="Cambria" Foreground="#DDFFFFFF"/>
-            <Button Content="Button" Margin="0,0,0.2,0"/>
-
         </StackPanel>
-
+        
+        <!-- The following line works represents the button -->
+        <Button Content="Button" HorizontalAlignment="Left" Margin="274,328,0,0" VerticalAlignment="Top" 
+                FontFamily="Cambria" FontSize ="20px" FontWeight="Bold" Width="234" Height="31" Click="Button_Click" 
+                BorderBrush="White" BorderThickness="2"/>
+        
     </Grid>
 </Window>
