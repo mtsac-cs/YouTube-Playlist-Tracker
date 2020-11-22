@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GiveBack_Hackathon.Wpf.UserControls
+namespace GiveBack_Hackathon.Wpf.Windows
 {
     /// <summary>
-    /// Interaction logic for ChoosePlaylist_UserControl.xaml
+    /// Interaction logic for UserInput.xaml
     /// </summary>
-    public partial class ChoosePlaylist_UserControl : UserControl
+    public partial class UserInput : Window
     {
-        public ChoosePlaylist_UserControl()
+        public UserInput()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

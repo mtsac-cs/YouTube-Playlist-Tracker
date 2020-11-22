@@ -45,7 +45,6 @@
             </Grid>
         </materialDesign:ColorZone>
 
-
         <materialDesign:ColorZone Width="250" Mode="PrimaryMid" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF303030">
             <Grid>
                 <Grid.RowDefinitions>

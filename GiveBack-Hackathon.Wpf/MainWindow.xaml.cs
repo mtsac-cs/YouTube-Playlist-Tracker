@@ -65,12 +65,10 @@ namespace GiveBack_Hackathon.Wpf
             for (int i = 0; i < playlist.PlaylistVideos.Count; i++)
             {
                 var video = new PlaylistItem_UserControl();
-                video.videoName = playlist.PlaylistVideos[i].Title;
-                video.index = i;
+                video.videoName = i.ToString();
+                video.index = (i + 1);                // Incrementing it by 1 fixes 0 base indeing for the user 
                 video.Width = ContentGrid.ActualWidth;
                 video.Height = ContentGrid.ActualHeight / 12;
-
-                
 
                 ListBoxItem item = new ListBoxItem();
                 //item.Padding = new Thickness(15, 3, 0, 0);
@@ -105,6 +103,7 @@ namespace GiveBack_Hackathon.Wpf
         private void PlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             
+			
         }
 
         private void TestPlaylist()
