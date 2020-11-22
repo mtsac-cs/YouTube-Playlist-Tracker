@@ -31,6 +31,7 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
+        
         <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Red">
             <Grid x:Name="Toolbar" HorizontalAlignment="Right" >
                 <Grid.ColumnDefinitions>
@@ -40,10 +41,11 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PopupBox x:Name="MaterialPopup" Grid.Column="2" PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right"/>
-                
-                <Button Grid.Column="2" x:Name="AddPlaylist_Button" Content="Add a playlist" Background="#FF404040" Click="AddPlaylist_Button_Click" Margin=" 0,0,7,0" BorderThickness="0"/>
+
+                <Button Grid.Column="2" x:Name="AddPlaylist_Button" Content="Add a playlist" Background="#FF404040" Click="AddNewPlaylist_Button_Click" Margin=" 0,0,7,0" BorderThickness="0"/>
             </Grid>
         </materialDesign:ColorZone>
+        <TextBlock Text="YouTube Playlist Tracker" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="./#TradeGothic LT CondEighteen" FontSize="22" Foreground="#DD000000" Visibility="Collapsed"/>
 
         <materialDesign:ColorZone Width="250" Mode="PrimaryMid" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF303030">
             <Grid>

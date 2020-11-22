@@ -12,8 +12,18 @@ namespace GiveBack_Hackathon.Lib.YouTube
         public string playlistName;
         public List<YoutubeVideo> PlaylistVideos { get; set; } = new List<YoutubeVideo>();
 
-        public Playlist(string fileName)
+        public Playlist(string fileName, bool useFullpath = false)
         {
+            //will impliment later. For now you have to use file name's with predetermiend path, rather than custom paths
+            /*if (useFullpath)
+            {
+                if (!File.Exists(fileName))
+                    throw new ArgumentException("Tried loading a playlist file that doesn't exist. Path: " + fileName, "fileName");
+
+                FileInfo f = new FileInfo(fileName);
+                fileName = f.Name;
+            }*/
+
             this.fileName = fileName;
 
             var loadedPlaylist = LoadFromFile();
@@ -25,9 +35,9 @@ namespace GiveBack_Hackathon.Lib.YouTube
             PlaylistVideos = loadedPlaylist.PlaylistVideos;
         }
 
-        private Playlist LoadFromFile()
+        private Playlist LoadFromFile() => LoadFromFile(playlistDir + "//" + fileName);
+        private Playlist LoadFromFile(string filePath)
         {
-            string filePath = playlistDir + "//" + fileName;
             if (!IsPathValid(filePath))
                 return null;
 
@@ -37,6 +47,8 @@ namespace GiveBack_Hackathon.Lib.YouTube
 
             return JsonConvert.DeserializeObject<Playlist>(json);
         }
+        
+        
 
         private bool IsPathValid(string filePath)
         {

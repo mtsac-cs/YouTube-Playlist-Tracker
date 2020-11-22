@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace GiveBack_Hackathon.Lib.YouTube
 {
-    class Program
+    public class Program
     {
 
-        static void Main(string[] args)
+        public void Main(string[] args)
         {
             var id1 = "PLw6eTMMKY24QLYfmrU2rB8x-lP5Fas2dY";
 

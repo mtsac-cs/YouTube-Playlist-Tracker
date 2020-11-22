@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Playlists.cs" />
     <Compile Include="UserControls\PlaylistItem_UserControl.xaml.cs">
       <DependentUpon>PlaylistItem_UserControl.xaml</DependentUpon>
     </Compile>
@@ -75,8 +76,8 @@
     <Compile Include="UserControls\Welcome_UserControl.xaml.cs">
       <DependentUpon>Welcome_UserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\UserInput.xaml.cs">
-      <DependentUpon>UserInput.xaml</DependentUpon>
+    <Compile Include="Windows\GetPlaylist_Window.xaml.cs">
+      <DependentUpon>GetPlaylist_Window.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\Login_UserControl.xaml">
       <SubType>Designer</SubType>
@@ -107,7 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Welcome_UserControl.xaml">
-    <Page Include="Windows\UserInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\GetPlaylist_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -135,6 +139,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\Trade Gothic LT Bold Condensed No. 20.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

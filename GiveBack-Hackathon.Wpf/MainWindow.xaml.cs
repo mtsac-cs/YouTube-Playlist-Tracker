@@ -1,6 +1,9 @@
 ﻿using GiveBack_Hackathon.Lib.YouTube;
 using GiveBack_Hackathon.Wpf.UserControls;
+using GiveBack_Hackathon.Wpf.Windows;
+using System;
 using System.IO;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,7 +16,9 @@ namespace GiveBack_Hackathon.Wpf
     public partial class MainWindow : Window
     {
         public static MainWindow instance;
-        PlaylistViewer_UserControl playlistViewer;
+        public static Playlists allPlaylists = new Playlists();
+        public string lastLoadedPlaylist;
+        PlaylistViewer_UserControl playlistViewer = new PlaylistViewer_UserControl();
 
         #region Constructors
         public MainWindow()
@@ -27,95 +32,101 @@ namespace GiveBack_Hackathon.Wpf
         {
             new Logger(); //Create new logger so the singleton can initialize
             Logger.Log("Welcome to the YouTube Playlist Tracker");
-        }
 
-        private void ToolbarButton1_Click(object sender, RoutedEventArgs e)
-        {
-            CreateFakePlaylists();
-            if (playlistViewer is null)
-            {
-                playlistViewer = new PlaylistViewer_UserControl();
-                AddVideos();
-            }
-
-            var children = ContentGrid.Children;
-            if (children.Count > 0)
-            {
-                var test = children[0] as PlaylistViewer_UserControl;
-                if (test != null)
-                {
-                    children.RemoveAt(0);
-                }
-            }
-            else
-            {
-                const int spaceToEdge = 15;
-                playlistViewer.Width = ContentGrid.ActualWidth + spaceToEdge;
-                ContentGrid.Children.Add(playlistViewer);
-            }
-        }
-        
-        public void AddVideos()
-        {
-            var viewer = playlistViewer.PlaylistViewer;
-
-            Playlist playlist = new Playlist("test.json");
-            //playlist.SaveToFile();
-
-            for (int i = 0; i < playlist.PlaylistVideos.Count; i++)
-            {
-                var video = new PlaylistItem_UserControl();
-                video.videoName = i.ToString();
-                video.index = (i + 1);                // Incrementing it by 1 fixes 0 base indeing for the user 
-                video.Width = ContentGrid.ActualWidth;
-                video.Height = ContentGrid.ActualHeight / 12;
-
-                ListBoxItem item = new ListBoxItem();
-                //item.Padding = new Thickness(15, 3, 0, 0);
-                item.Content = video;
-                viewer.Children.Add(item);
-            }
+            allPlaylists.LoadAllPlaylists();
         }
 
         
-        private void CreateFakePlaylists()
+        private void AddNewPlaylist_Button_Click(object sender, RoutedEventArgs e)
         {
-            const int numFakePlaylists = 5;
-            for (int i = 0; i < numFakePlaylists; i++)
-            {
-                Button playlistButton = new Button();
-                playlistButton.Width = Playlist_ListBox.ActualWidth - 15;
-
-
-                playlistButton.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-                playlistButton.Foreground = Brushes.Black;
-
-                playlistButton.Content = i.ToString();
-                
-                playlistButton.Click += PlaylistButton_Click;
-
-                ListBoxItem item = new ListBoxItem();
-                item.Content = playlistButton;
-                Playlist_ListBox.Items.Add(item);
-            }
+            GetPlaylist_Window getPlaylist = new GetPlaylist_Window();
+            getPlaylist.Show();
         }
 
         private void PlaylistButton_Click(object sender, RoutedEventArgs e)
         {
+            CreatePlaylistViewerIfNull();
+            var playlistButton = sender as Button;
+            string playlistName = playlistButton.Content.ToString();
             
-			
+            if (playlistName == lastLoadedPlaylist)
+                return;
+
+            playlistViewer.PlaylistViewer.Children.Clear();
+            var playlist = GetPlaylistFromTitle(playlistName);
+            lastLoadedPlaylist = playlistName;
+            AddPlaylistVideosToListBox(playlist);
         }
 
-        private void TestPlaylist()
+        private void CreatePlaylistViewerIfNull()
         {
-            /*Playlist playlist = new Playlist();
-            playlist = playlist.LoadFromFile(Playlist.playlistDir + "\\test.json");
-            Logger.Log(playlist.PlaylistVideos[0].Title);*/
+            if (!playlistViewer.IsVisible)
+            {
+                int welcomeScreenIndex = 0;
+                ContentGrid.Children.RemoveAt(welcomeScreenIndex);
+                ContentGrid.Children.Add(playlistViewer);
+            }
         }
 
-        private void AddPlaylist_Button_Click(object sender, RoutedEventArgs e)
+        private Playlist GetPlaylistFromTitle(string title)
         {
+            if (string.IsNullOrEmpty(title))
+                throw new ArgumentException("Can't get playlist from title because title is null", "title");
+
+            var loadedPlaylist = Playlists.GetPlaylistFromPath(title);
+            return loadedPlaylist;
+        }
+
+        public void AddPlaylistToListbox(Playlist playlist)
+        {
+            var listBoxItem = CreatePlaylistListBoxItem(playlist);
+            Playlist_ListBox.Items.Add(listBoxItem);
+        }
+
+        private ListBoxItem CreatePlaylistListBoxItem(Playlist playlist)
+        {
+            const int sideMargin = 15;
+            Button playlistButton = new Button();
+            playlistButton.Width = Playlist_ListBox.ActualWidth - sideMargin;
+            playlistButton.Background = Brushes.White;
+            playlistButton.Foreground = Brushes.Black;
+            playlistButton.Click += PlaylistButton_Click;
+
+            playlistButton.Content = playlist.playlistName;
+
+            ListBoxItem item = new ListBoxItem();
+            item.Content = playlistButton;
+            return item;
+        }
+
+        private void AddPlaylistVideosToListBox(Playlist playlist)
+        {
+            var videos = playlist.PlaylistVideos;
+            foreach (var video in videos)
+            {
+                var listBoxItem = CreateVideoListboxItem(video);
+                playlistViewer.PlaylistViewer.Children.Add(listBoxItem);
+            }
+        }
+
+        private ListBoxItem CreateVideoListboxItem(YoutubeVideo video)
+        {
+            var playlistItem = new PlaylistItem_UserControl();
+            playlistItem.videoName = video.Title;
+            playlistItem.index = video.IndexInPlaylist;
+
+            const int maxSeenOnScreen = 12;
+            playlistItem.Height = ContentGrid.ActualHeight / maxSeenOnScreen;
+
+            const int distanceFromRightEdge = 75;
+            playlistItem.Width = ContentGrid.ActualWidth - distanceFromRightEdge;
+
+            const int spaceBetweenSides = 25;
+            playlistItem.Margin = new Thickness(spaceBetweenSides, 0, -spaceBetweenSides, 0);
+            ListBoxItem item = new ListBoxItem();
             
+            item.Content = playlistItem;
+            return item;
         }
     }
 }
