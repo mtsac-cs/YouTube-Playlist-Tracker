@@ -113,5 +113,10 @@ namespace GiveBack_Hackathon.Wpf
             playlist = playlist.LoadFromFile(Playlist.playlistDir + "\\test.json");
             Logger.Log(playlist.PlaylistVideos[0].Title);*/
         }
+
+        private void AddPlaylist_Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
