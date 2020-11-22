@@ -49,6 +49,8 @@ namespace GiveBack_Hackathon.Wpf
             }
             else
             {
+                const int spaceToEdge = 15;
+                playlistViewer.Width = ContentGrid.ActualWidth + spaceToEdge;
                 ContentGrid.Children.Add(playlistViewer);
             }
         }
@@ -66,7 +68,7 @@ namespace GiveBack_Hackathon.Wpf
                 video.videoName = playlist.PlaylistVideos[i].Title;
                 video.index = i;
                 video.Width = ContentGrid.ActualWidth;
-                video.Height = ContentGrid.ActualHeight / 10;
+                video.Height = ContentGrid.ActualHeight / 12;
 
                 
 
@@ -77,10 +79,7 @@ namespace GiveBack_Hackathon.Wpf
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="num">num equals some random shit</param>
+        
         private void CreateFakePlaylists()
         {
             const int numFakePlaylists = 5;
@@ -89,9 +88,9 @@ namespace GiveBack_Hackathon.Wpf
                 Button playlistButton = new Button();
                 playlistButton.Width = Playlist_ListBox.ActualWidth - 15;
 
-                
-                //playlistButton.Background = Brushes.
-                //playlistButton.Foreground = Brushes.Black;
+
+                playlistButton.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                playlistButton.Foreground = Brushes.Black;
 
                 playlistButton.Content = i.ToString();
                 

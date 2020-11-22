@@ -75,6 +75,9 @@
     <Compile Include="UserControls\PlaylistViewer_UserControl.xaml.cs">
       <DependentUpon>PlaylistViewer_UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Welcome_UserControl.xaml.cs">
+      <DependentUpon>Welcome_UserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="UserControls\ChoosePlaylist_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PlaylistViewer_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Welcome_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

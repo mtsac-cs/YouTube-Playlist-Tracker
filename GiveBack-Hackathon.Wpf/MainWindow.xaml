@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:GiveBack_Hackathon.Wpf.UserControls"
         xmlns:local="clr-namespace:GiveBack_Hackathon.Wpf"
         mc:Ignorable="d"
-        Title="YouTube Playlist Tracker" Height="650" Width="1103.316"
+        Title="YouTube Playlist Tracker" Height="650" Width="1200"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -38,36 +39,43 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:PopupBox x:Name="MaterialPopup" Grid.Column="2" PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right"/>
-                
-                <Button Grid.Column="1" x:Name="ToolbarButton1" Content="Button1" Background="#FF3A272B" Click="ToolbarButton1_Click" Margin=" 0,0,7,0"/>
-                <Button Grid.Column="2" x:Name="AddPlaylist_Button" Content="Add a playlist" Background="#FF2E273A" Click="ToolbarButton1_Click" Margin=" 0,0,7,0"/>
+
+                <Button Grid.Column="1" x:Name="ToolbarButton1" Content="Button1" Background="#FF404040" Click="ToolbarButton1_Click" Margin=" 0,0,7,0"  BorderThickness="0"/>
+                <Button Grid.Column="2" x:Name="AddPlaylist_Button" Content="Add a playlist" Background="#FF404040" Click="ToolbarButton1_Click" Margin=" 0,0,7,0" BorderThickness="0"/>
             </Grid>
         </materialDesign:ColorZone>
 
 
-        <materialDesign:ColorZone  Width="250" Mode="PrimaryMid" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <materialDesign:ColorZone Width="250" Mode="PrimaryMid" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF303030">
             <Grid>
-                <ListBox x:Name="Playlist_ListBox" Background="#FF303030">
-                    
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="Playlists" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                
+                <ListBox x:Name="Playlist_ListBox" Grid.Row="1">
+                    <!--<Button Width="240" Background="White"/>-->
                 </ListBox>
             </Grid>
         </materialDesign:ColorZone>
 
 
         <Grid x:Name="ContentGrid" Grid.Column="2" Grid.Row="1">
-            
+            <uc:Welcome_UserControl/>
         </Grid>
 
 
-        <Grid Grid.ColumnSpan="3" Grid.RowSpan="3">
+        <Grid Grid.ColumnSpan="4" Grid.RowSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="MsgPopupGrid" Grid.Row="1" Background="#FFFF9E00" HorizontalAlignment="Left" Visibility="Collapsed">
+            <Grid x:Name="MsgPopupGrid" Grid.Row="1" Background="#FF9E9E9E" HorizontalAlignment="Left" Visibility="Collapsed">
                 <Rectangle x:Name="rect" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="50"/>
-                <TextBlock x:Name="MsgText" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Message" FontSize="24" Foreground="#DD2B2B2B"/>
+                <TextBlock x:Name="MsgText" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Message" FontSize="24" Foreground="#DDFFFFFF"/>
             </Grid>
         </Grid>
     </Grid>

@@ -48,7 +48,10 @@ namespace GiveBack_Hackathon.Wpf
         private void Logger_MessageLogged(object sender, Logger.LogEvents e)
         {
             if (e.MessageDisplayTime <= 0)
-                e.MessageDisplayTime = 2000;
+            {
+                const int defaultTime = 2500;
+                e.MessageDisplayTime = defaultTime;
+            }
 
             msgQueue.Enqueue(e);
 
