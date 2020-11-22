@@ -12,10 +12,8 @@ namespace GiveBack_Hackathon.Lib.YouTube
         public string playlistName;
         public List<YoutubeVideo> PlaylistVideos { get; set; } = new List<YoutubeVideo>();
 
-
-        public Playlist(string fileName, int? num)
+        public Playlist(string fileName)
         {
-            Guard.ThrowIfStringNullOrEmpty(fileName, "Can't load playlist from file, fileName is null");
             this.fileName = fileName;
 
             var loadedPlaylist = LoadFromFile();
