@@ -19,15 +19,15 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
 
         }
 
-        public PlaylistInfo(string fileName)
+        public PlaylistInfo(string playlistName)
         {
-            this.fileName = fileName;
+            this.fileName = playlistName;
 
             var loadedPlaylist = LoadFromFile();
             if (loadedPlaylist is null)
                 return;
 
-            playlistName = loadedPlaylist.playlistName;
+            this.playlistName = playlistName.Replace(".json","");
             PlaylistVideos = loadedPlaylist.PlaylistVideos;
         }
         #endregion

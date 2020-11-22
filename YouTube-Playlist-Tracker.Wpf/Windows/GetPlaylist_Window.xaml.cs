@@ -31,7 +31,7 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
                 return;
             }
 
-            GetPlaylistFromYoutube(SearchTextBox.Text);
+            GetPlaylistFromYoutube(PlaylistURL_TextBox.Text);
         }
 
         private void GetPlaylistFromYoutube(string playlistUrl)
@@ -39,8 +39,12 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
             if (!IsPlaylistUrlValid(playlistUrl))
                 return;
 
-            PlaylistInfo p = new PlaylistInfo("aaa");
+            PlaylistInfo p = new PlaylistInfo(PlaylistName_TextBox.Text);
             p.GetPlaylistFromYoutube(playlistUrl);
+            p.playlistName = PlaylistName_TextBox.Text;
+            MainWindow.instance.AddPlaylistToListbox(p);
+            MainWindow.instance.ShowPlaylistVideos(p.playlistName);
+            Close();
         }
 
         private bool IsPlaylistUrlValid(string playlistUrl)

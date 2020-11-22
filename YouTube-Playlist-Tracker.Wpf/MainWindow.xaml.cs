@@ -45,9 +45,14 @@ namespace YouTube_Playlist_Tracker.Wpf
 
         private void PlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-            CreatePlaylistViewerIfNull();
             var playlistButton = sender as Button;
             string playlistName = playlistButton.Content.ToString();
+            ShowPlaylistVideos(playlistName);
+        }
+
+        public void ShowPlaylistVideos(string playlistName)
+        {
+            CreatePlaylistViewerIfNull();
             
             if (playlistName == lastLoadedPlaylist)
                 return;
