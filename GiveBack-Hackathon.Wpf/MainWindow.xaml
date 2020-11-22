@@ -24,13 +24,12 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        
-
-        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF673AB7">
+        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="43" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid x:Name="Toolbar">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
@@ -45,16 +44,16 @@
             </Grid>
         </materialDesign:ColorZone>
 
-        
-        <Grid x:Name="ContentGrid" Grid.Column="1" Grid.Row="1" Margin="0,0.4,47.8,44">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="403*"/>
-                <ColumnDefinition Width="607*"/>
-            </Grid.ColumnDefinitions>
+        <materialDesign:ColorZone  Width="250" Mode="PrimaryMid" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid>
+                <ListBox x:Name="Playlist_ListBox" Background="#FF303030">
+                    
+                </ListBox>
+            </Grid>
+        </materialDesign:ColorZone>
 
 
-
-
+        <Grid x:Name="ContentGrid" Grid.Column="2" Grid.Row="1">
 
         </Grid>
 

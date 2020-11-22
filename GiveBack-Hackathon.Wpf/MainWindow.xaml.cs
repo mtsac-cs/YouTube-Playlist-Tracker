@@ -2,6 +2,7 @@
 using GiveBack_Hackathon.Wpf.UserControls;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GiveBack_Hackathon.Wpf
 {
@@ -29,7 +30,7 @@ namespace GiveBack_Hackathon.Wpf
 
         private void ToolbarButton1_Click(object sender, RoutedEventArgs e)
         {
-            TestPlaylist();
+            CreateFakePlaylists();
             if (playlistViewer is null)
             {
                 playlistViewer = new PlaylistViewer_UserControl();
@@ -54,7 +55,12 @@ namespace GiveBack_Hackathon.Wpf
         public void AddVideos()
         {
             var viewer = playlistViewer.PlaylistViewer;
-            for (int i = 0; i < 20; i++)
+
+            Playlist playlist = new Playlist();
+            playlist = playlist.LoadFromFile(Playlist.playlistDir + "\\test.json");
+            
+
+            for (int i = 0; i < playlist.PlaylistVideos.Count; i++)
             {
                 var video = new PlaylistItem_UserControl();
                 video.videoName = i.ToString();
@@ -63,32 +69,43 @@ namespace GiveBack_Hackathon.Wpf
                 video.Height = (ContentGrid.ActualHeight / 10);
 
                 ListBoxItem item = new ListBoxItem();
-                item.Padding = new Thickness(15, 3, 0, 0);
+                //item.Padding = new Thickness(15, 3, 0, 0);
                 item.Content = video;
                 viewer.Children.Add(item);
             }
         }
 
-        private void AddPlaylistButton_Click(object sender, RoutedEventArgs e)
+        private void CreateFakePlaylists()
         {
-            throw new NotImplementedException();
+            const int numFakePlaylists = 5;
+            for (int i = 0; i < numFakePlaylists; i++)
+            {
+                Button playlistButton = new Button();
+                playlistButton.Width = Playlist_ListBox.ActualWidth - 15;
+                playlistButton.Background = Brushes.Orange;
+                playlistButton.Foreground = Brushes.Black;
 
+                playlistButton.Content = i.ToString();
+                
+                playlistButton.Click += PlaylistButton_Click;
 
+                ListBoxItem item = new ListBoxItem();
+                item.Content = playlistButton;
+                Playlist_ListBox.Items.Add(item);
+            }
         }
 
-        private void TutorialButton_Click(object sender, RoutedEventArgs e)
+        private void PlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-
-
-
+            
+			
         }
 
         private void TestPlaylist()
         {
-            Playlist playlist = new Playlist();
+            /*Playlist playlist = new Playlist();
             playlist = playlist.LoadFromFile(Playlist.playlistDir + "\\test.json");
-            Logger.Log(playlist.PlaylistVideos[0].Title);
+            Logger.Log(playlist.PlaylistVideos[0].Title);*/
         }
     }
 }
