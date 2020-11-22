@@ -28,15 +28,19 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        <!--<StackPanel Background="#FF514E4E" Grid.Column="1" Grid.Row="1">
-            <materialDesign:Card Padding="32" Margin="16" Background="#FF7BEEB0">
-                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}">My First Material Design App</TextBlock>
-            </materialDesign:Card>
-        </StackPanel>-->
+        
 
         <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid>
-                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right"/>
+            <Grid x:Name="Toolbar">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <materialDesign:PopupBox x:Name="MaterialPopup" Grid.Column="2" PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right"/>
+
+                <Button Grid.Column="1" x:Name="ToolbarButton1" Content="Button1" Background="#FF2E273A" Click="ToolbarButton1_Click"/>
             </Grid>
         </materialDesign:ColorZone>
 
