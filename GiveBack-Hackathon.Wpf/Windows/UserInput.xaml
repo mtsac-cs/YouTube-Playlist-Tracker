@@ -16,20 +16,22 @@
 
     <Grid Background="#FF464646">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="235*"/>
-            <ColumnDefinition Width="559*"/>
+            <ColumnDefinition Width="64*"/>
+            <ColumnDefinition Width="171*"/>
+            <ColumnDefinition Width="558*"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Enter URL Playlist Below" TextAlignment="Center" FontSize="20px" FontWeight="Bold" 
-               Margin="46.404,48,278.6,348" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
-               Background="#FF673AB7" Width="234" Foreground="#DDFFFFFF" Grid.Column="1">
+               Margin="45.8,48,278.6,348" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
+               Background="#FF673AB7" Width="234" Foreground="#DDFFFFFF" Grid.Column="2">
         </TextBlock>
 
-        <StackPanel Margin="137,152,125.6,185" Grid.ColumnSpan="2">
+        <StackPanel Margin="73.02,152,125.6,185" Grid.ColumnSpan="2" Grid.Column="1">
             <TextBlock Margin="5" Text="Input Box:" FontSize="20px" FontWeight="Bold" 
                        FontFamily="Cambria" Foreground="#DDFFFFFF"/>
-        
+            <Button Content="Button" Margin="0,0,0.2,0"/>
+
         </StackPanel>
-        
+
     </Grid>
 </Window>
