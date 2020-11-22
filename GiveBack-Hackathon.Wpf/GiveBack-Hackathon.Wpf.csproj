@@ -66,12 +66,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\ChoosePlaylist_UserControl.xaml.cs">
+      <DependentUpon>ChoosePlaylist_UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PlaylistItem_UserControl.xaml.cs">
       <DependentUpon>PlaylistItem_UserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PlaylistViewer_UserControl.xaml.cs">
       <DependentUpon>PlaylistViewer_UserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControls\ChoosePlaylist_UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Login_UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
