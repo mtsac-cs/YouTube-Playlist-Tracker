@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GiveBack_Hackathon.Wpf
 {
@@ -23,6 +24,23 @@ namespace GiveBack_Hackathon.Wpf
         {
             new Logger(); //Create new logger so the singleton can initialize
             Logger.Log("Welcome to the YouTube Playlist Tracker");
+
         }
+
+        private void AddPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+
+
+        }
+
+        private void TutorialButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+
+
+
+        }
+
     }
 }

@@ -41,12 +41,24 @@
         </materialDesign:ColorZone>
 
         
-        <Grid x:Name="ContentGrid" Grid.Column="1" Grid.Row="1">
+        <Grid x:Name="ContentGrid" Grid.Column="1" Grid.Row="1" Margin="0,0.4,47.8,44">
+
             
+            
+            <Button Name="btn2" Background="BlueViolet" BorderBrush="Black" BorderThickness="1"
+                    Click="TutorialButton_Click" ClickMode="Press" Margin="175,249,175,218" Height="Auto">
+                Tutorial
+            </Button>
+            
+            <Button Name="btn3" Background="BlueViolet" BorderBrush="Black" BorderThickness="1"
+                    Click="AddPlaylistButton_Click" ClickMode="Press" Margin="175,379,175,89" Height="Auto">
+                Add Playlist
+            </Button>
+
         </Grid>
 
 
-        <Grid Grid.ColumnSpan="3" Grid.RowSpan="3">
+        <Grid Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="0,4,-0.2,-4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="auto"/>
