@@ -58,9 +58,9 @@ namespace GiveBack_Hackathon.Wpf
             {
                 var video = new PlaylistItem_UserControl();
                 video.videoName = i.ToString();
-                video.index = i;
+                video.index = (i + 1);                // Incrementing it by 1 fixes 0 base indeing for the user 
                 video.Width = ContentGrid.ActualWidth;
-                video.Height = ContentGrid.ActualHeight / 10;
+                video.Height = (ContentGrid.ActualHeight / 10);
 
                 ListBoxItem item = new ListBoxItem();
                 item.Padding = new Thickness(15, 3, 0, 0);
