@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GiveBack_Hackathon.Lib.YouTube;
+using System;
+using System.IO;
+using System.Threading;
 using System.Windows;
 
 namespace GiveBack_Hackathon.Wpf.Windows
@@ -53,7 +56,16 @@ namespace GiveBack_Hackathon.Wpf.Windows
 
         private void GetPlaylistFromYoutube(string url)
         {
+            YoutubeList video = new YoutubeList(url);
 
+            Thread t = new Thread(() => 
+            {
+                var titles = video.getTitleList();
+
+                string testFile = Environment.CurrentDirectory + "\\test.text";
+                File.WriteAllLines(testFile, titles);
+            });
+            
         }
     }
 }
