@@ -47,10 +47,24 @@ namespace YouTube_Playlist_Tracker.Wpf
         {
             var playlistButton = sender as Button;
             string playlistName = playlistButton.Content.ToString();
-            ShowPlaylistVideos(playlistName);
+
+            var playlist = GetPlaylistFromTitle(playlistName);
+            ShowPlaylistVideos(playlist);
         }
 
-        public void ShowPlaylistVideos(string playlistName)
+        public void ShowPlaylistVideos(PlaylistData playlist)
+        {
+            CreatePlaylistViewerIfNull();
+
+            if (playlist.playlistTitle == lastLoadedPlaylist)
+                return;
+
+            playlistViewer.PlaylistViewer.Children.Clear();
+            lastLoadedPlaylist = playlist.playlistTitle;
+            AddPlaylistVideosToListBox(playlist);
+        }
+
+        /*public void ShowPlaylistVideos(string playlistName)
         {
             CreatePlaylistViewerIfNull();
             
@@ -61,7 +75,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             var playlist = GetPlaylistFromTitle(playlistName);
             lastLoadedPlaylist = playlistName;
             AddPlaylistVideosToListBox(playlist);
-        }
+        }*/
 
         private void CreatePlaylistViewerIfNull()
         {
@@ -97,7 +111,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             playlistButton.Foreground = Brushes.Black;
             playlistButton.Click += PlaylistButton_Click;
 
-            playlistButton.Content = playlist.playlistName;
+            playlistButton.Content = playlist.playlistTitle;
 
             ListBoxItem item = new ListBoxItem();
             item.Content = playlistButton;
@@ -108,6 +122,7 @@ namespace YouTube_Playlist_Tracker.Wpf
         {
             int i = 0;
             var videos = playlist.PlaylistVideos;
+            Logger.Log(videos.Count.ToString());
             foreach (var video in videos)
             {
                 i++;

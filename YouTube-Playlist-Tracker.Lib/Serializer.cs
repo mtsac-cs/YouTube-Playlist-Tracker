@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Lib
 {

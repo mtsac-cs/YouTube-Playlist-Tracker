@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
+using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
     public class PlaylistData
     {
-        readonly string fileName;
-        public string playlistName;
+        private string fileName;
+        public string playlistTitle;
         public string playlistID;
         public List<VideoData> PlaylistVideos = new List<VideoData>();
         public static string playlistDir = Environment.CurrentDirectory + "\\playlist data";
@@ -15,17 +17,27 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
         #region Constructors
         public PlaylistData(string playlistName)
         {
-            this.fileName = playlistName;
-            this.playlistName = playlistName.Replace(".json", "");
-            
-            string filePath = playlistName + "\\" + playlistName;
+            if (String.IsNullOrEmpty(playlistName))
+                return;
+
+            playlistTitle = playlistName.Replace(".json", "");
+            SetFileName();
+
+            string filePath = playlistDir + "\\" + fileName;
             var loadedPlaylist = LoadFromFile(filePath);
             if (loadedPlaylist is null)
                 return;
-            
+
             PlaylistVideos = loadedPlaylist.PlaylistVideos;
         }
         #endregion
+        
+        private void SetFileName()
+        {
+            fileName = playlistTitle;
+            if (!fileName.EndsWith(".json"))
+                fileName += ".json";
+        }
 
         public PlaylistData LoadFromFile(string filePath)
         {
@@ -49,6 +61,7 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
             });
             t.IsBackground = true;
             t.Start();
+            t.Join(); //this line might cause program to freeze while getting data from web
 
             return this;
         }

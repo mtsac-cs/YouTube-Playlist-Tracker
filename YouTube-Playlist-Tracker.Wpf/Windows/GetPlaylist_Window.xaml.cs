@@ -41,9 +41,11 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
 
             PlaylistData p = new PlaylistData(PlaylistName_TextBox.Text);
             p.GetFromYoutube_OnThread(playlistUrl);
-            p.playlistName = PlaylistName_TextBox.Text;
+            p.playlistTitle = PlaylistName_TextBox.Text;
+            p.SaveToFile();
+
             MainWindow.instance.AddPlaylistToListbox(p);
-            MainWindow.instance.ShowPlaylistVideos(p.playlistName);
+            MainWindow.instance.ShowPlaylistVideos(p);
             Close();
         }
 

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Documents;
+using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Wpf
 {
