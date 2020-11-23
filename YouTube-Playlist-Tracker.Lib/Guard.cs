@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 
 namespace YouTube_Playlist_Tracker.Lib
 {
@@ -17,6 +16,15 @@ namespace YouTube_Playlist_Tracker.Lib
             if (obj is null)
             {
                 throw new ArgumentNullException(message, argumentName);
+            }
+        }
+
+
+        public static void ThrowIfStringIsNull(string str, string message)
+        {
+            if (String.IsNullOrEmpty(str))
+            {
+                throw new Exception(message);
             }
         }
     }

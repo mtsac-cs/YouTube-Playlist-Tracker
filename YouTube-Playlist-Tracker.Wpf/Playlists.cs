@@ -1,11 +1,7 @@
 ﻿using YouTube_Playlist_Tracker.Lib.YouTube;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Windows.Documents;
-using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Wpf
 {
@@ -13,6 +9,7 @@ namespace YouTube_Playlist_Tracker.Wpf
     {
         public string playlistDir = PlaylistData.playlistDir;
         public List<PlaylistData> allPlaylists;
+
         public Playlists()
         {
             Directory.CreateDirectory(playlistDir);
@@ -46,6 +43,11 @@ namespace YouTube_Playlist_Tracker.Wpf
             }
         }
 
+        public void AddPlaylist(PlaylistData playlist)
+        {
+            MainWindow.instance.AddPlaylistToListbox(playlist);
+        }
+
         private bool DoPlaylistsExist(out FileInfo[] playlistFiles)
         {
             playlistFiles = new FileInfo[0];
@@ -59,9 +61,15 @@ namespace YouTube_Playlist_Tracker.Wpf
             return true;
         }
 
-        public void AddPlaylist(PlaylistData playlist)
+        public void GetPlaylistFromYoutube(string playlistName, string playlistUrl)
         {
-            MainWindow.instance.AddPlaylistToListbox(playlist);
+            PlaylistData p = new PlaylistData(playlistName);
+            p.GetFromYoutube_OnThread(playlistUrl);
+            p.playlistTitle = playlistName;
+            p.SaveToFile();
+
+            AddPlaylist(p);
+            MainWindow.instance.ShowPlaylistVideos(p);
         }
     }
 }

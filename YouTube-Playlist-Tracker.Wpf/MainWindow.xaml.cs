@@ -2,8 +2,6 @@
 using YouTube_Playlist_Tracker.Wpf.UserControls;
 using YouTube_Playlist_Tracker.Wpf.Windows;
 using System;
-using System.IO;
-using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,8 +32,6 @@ namespace YouTube_Playlist_Tracker.Wpf
             Logger.Log("Welcome to the YouTube Playlist Tracker");
             allPlaylists.LoadAllPlaylists();
         }
-
-        
         
         private void AddNewPlaylist_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -63,19 +59,6 @@ namespace YouTube_Playlist_Tracker.Wpf
             lastLoadedPlaylist = playlist.playlistTitle;
             AddPlaylistVideosToListBox(playlist);
         }
-
-        /*public void ShowPlaylistVideos(string playlistName)
-        {
-            CreatePlaylistViewerIfNull();
-            
-            if (playlistName == lastLoadedPlaylist)
-                return;
-
-            playlistViewer.PlaylistViewer.Children.Clear();
-            var playlist = GetPlaylistFromTitle(playlistName);
-            lastLoadedPlaylist = playlistName;
-            AddPlaylistVideosToListBox(playlist);
-        }*/
 
         private void CreatePlaylistViewerIfNull()
         {

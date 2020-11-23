@@ -1,7 +1,5 @@
 ﻿using YouTube_Playlist_Tracker.Lib.YouTube;
 using System;
-using System.IO;
-using System.Threading;
 using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Wpf.Windows
@@ -31,21 +29,11 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
                 return;
             }
 
-            GetPlaylistFromYoutube(PlaylistURL_TextBox.Text);
-        }
-
-        private void GetPlaylistFromYoutube(string playlistUrl)
-        {
-            if (!IsPlaylistUrlValid(playlistUrl))
+            if (!IsPlaylistUrlValid(PlaylistURL_TextBox.Text))
                 return;
 
-            PlaylistData p = new PlaylistData(PlaylistName_TextBox.Text);
-            p.GetFromYoutube_OnThread(playlistUrl);
-            p.playlistTitle = PlaylistName_TextBox.Text;
-            p.SaveToFile();
-
-            MainWindow.instance.AddPlaylistToListbox(p);
-            MainWindow.instance.ShowPlaylistVideos(p);
+            Playlists playlists = new Playlists();
+            playlists.GetPlaylistFromYoutube(PlaylistName_TextBox.Text, PlaylistURL_TextBox.Text);
             Close();
         }
 
@@ -70,8 +58,6 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
         {
             Logger.Log(errorMessage);
             MessageBox.Show(errorMessage);
-        }
-
-        
+        }        
     }
 }

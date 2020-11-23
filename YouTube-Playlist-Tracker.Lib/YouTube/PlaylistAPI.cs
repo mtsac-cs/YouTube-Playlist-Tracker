@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using YouTube_Playlist_Tracker.Lib.Web;
-using System.Threading.Tasks;
 
 namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
     /// <summary>
     /// This class uses API Key to get string text about playlist
+    /// Much of this code was inspired by this Youtube Tutorial: https://www.youtube.com/watch?v=gRXE8QkFqtU
     /// </summary>
     public class PlaylistAPI
     {
@@ -41,17 +41,28 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
 
         private string GetPlaylistIDFromURL(string url)
         {
-            //PlayList ID is everything after the equal sign
-            string[] split = url.Split('=');
-            string playlistId = split[split.Length - 1];
-            
-            const int playlistIDLength = 34;
-            if (playlistId.Length != playlistIDLength)
-                throw new Exception("Playlist ID must be 34 char long. Current length: " + playListID.Length);
-
+            bool isUrlValid = IsUrlValid(url, out string playlistId);
             return playlistId;
         }
 
+        private bool IsUrlValid(string url, out string playlistId)
+        {
+            //PlayList ID is everything after the equal sign
+            string[] split = url.Split('=');
+            playlistId = split[split.Length - 1];
+
+            if (String.IsNullOrEmpty(playListID))
+                return false;
+
+            const int playlistIDLength = 34;
+            if (playlistId.Length != playlistIDLength)
+            {
+                Logger.Log("Playlist ID must be 34 char long. Current length: " + playListID.Length);
+                return false;
+            }
+
+            return true;
+        }
 
         private bool CanGetPlaylistFromJSON()
         {

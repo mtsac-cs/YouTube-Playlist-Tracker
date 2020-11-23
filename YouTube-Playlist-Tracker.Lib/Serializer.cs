@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
-using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Lib
 {
@@ -24,13 +23,12 @@ namespace YouTube_Playlist_Tracker.Lib
 
         private static bool IsPathValid(string filePath)
         {
-            Guard.ThrowIfArgumentIsNull(filePath, "Can't load file, path is null", "filePath");
+            Guard.ThrowIfStringIsNull(filePath, "Can't load file, path is null");
             if (!File.Exists(filePath))
                 return false;
 
             return true;
         }
-
 
         public static void SaveToFile<T>(T jsonObject, string savePath, bool overwriteExisting = true) where T : class
         {
