@@ -24,11 +24,27 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            string playlistUrl = SearchTextBox.Text;
+            if (!YoutubePlaylistAPI.DoesApiFileExist())
+            {
+                YoutubePlaylistAPI.CreateAPIFile();
+                Logger.Log("Paste your api key in the \"api.txt\" file, in the same Directory as this program");
+                return;
+            }
+
+            GetPlaylistFromYoutube(PlaylistURL_TextBox.Text);
+        }
+
+        private void GetPlaylistFromYoutube(string playlistUrl)
+        {
             if (!IsPlaylistUrlValid(playlistUrl))
                 return;
 
-            GetPlaylistFromYoutube(playlistUrl);
+            PlaylistInfo p = new PlaylistInfo(PlaylistName_TextBox.Text);
+            p.GetPlaylistFromYoutube(playlistUrl);
+            p.playlistName = PlaylistName_TextBox.Text;
+            MainWindow.instance.AddPlaylistToListbox(p);
+            MainWindow.instance.ShowPlaylistVideos(p.playlistName);
+            Close();
         }
 
         private bool IsPlaylistUrlValid(string playlistUrl)
@@ -54,21 +70,6 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
             MessageBox.Show(errorMessage);
         }
 
-        private void GetPlaylistFromYoutube(string url)
-        {
-            YoutubeList video = new YoutubeList(url);
-
-            Thread t = new Thread(() => 
-            {
-                var titles = video.getTitleList();
-                
-                Playlist p = new Playlist("new saving.json");
-                p.PlaylistVideos = titles;
-                p.SaveToFile();
-            });
-
-            t.IsBackground = true;
-            t.Start();
-        }
+        
     }
 }

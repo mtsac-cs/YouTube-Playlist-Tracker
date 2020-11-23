@@ -32,9 +32,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Enter URL Playlist Below" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" TextAlignment="Center" FontSize="20px" FontWeight="Bold" 
+            <TextBlock Text="Enter Playlist Info Below" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" TextAlignment="Center" FontSize="20px" FontWeight="Bold" 
                FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
                Background="#FF736C83" Width="265" Foreground="#DDFFFFFF" Height="30"/>
 
@@ -45,18 +45,28 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Input Box" FontSize="20px" FontWeight="Bold" FontFamily="Cambria" Foreground="#DDFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox x:Name="SearchTextBox" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="2" Background="White" FontWeight="Normal" FontSize="32"></TextBox>
-                <Button x:Name="SearchButton" Content="Search" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" 
+
+                <TextBlock Text="Playlist Name" FontSize="20px" FontWeight="Bold" FontFamily="Cambria" Foreground="#DDFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox x:Name="PlaylistName_TextBox" Grid.Row="2"  BorderBrush="Black" BorderThickness="2" Background="White" FontWeight="Normal" FontSize="16" TextAlignment="Center"></TextBox>
+
+                <TextBlock Text="Playlist URL" Grid.Row="4" FontSize="20px" FontWeight="Bold" FontFamily="Cambria" Foreground="#DDFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox x:Name="PlaylistURL_TextBox" Grid.Row="5" BorderBrush="Black" BorderThickness="2" Background="White" FontWeight="Normal" FontSize="16"  TextAlignment="Center"></TextBox>
+
+                <Button x:Name="SearchButton" Content="Search" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" 
                 FontFamily="Cambria" FontSize ="20px" FontWeight="Bold" Width="234" Height="31" Click="SearchButton_Click" 
                 BorderBrush="White" BorderThickness="2" Background="#FF736C83"/>
             </Grid>
+
+
         </Grid>
-        
+
         <!-- Commented out grid columns -->
-        
+
 
         <!--<TextBlock Text="Enter URL Playlist Below" TextAlignment="Center" FontSize="20px" FontWeight="Bold" 
                Margin="258,51,270.6,339" FontFamily="Cambria" HorizontalAlignment="Center" VerticalAlignment="Center" 
