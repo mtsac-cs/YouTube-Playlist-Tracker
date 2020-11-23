@@ -1,35 +1,33 @@
 ﻿using YouTube_Playlist_Tracker.Lib.YouTube;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Windows.Documents;
 
 namespace YouTube_Playlist_Tracker.Wpf
 {
     public class Playlists
     {
-        public string playlistDir = PlaylistInfo.playlistDir;
-        public List<PlaylistInfo> allPlaylists;
+        public string playlistDir = PlaylistData.playlistDir;
+        public List<PlaylistData> allPlaylists;
+
         public Playlists()
         {
             Directory.CreateDirectory(playlistDir);
         }
 
-        public static PlaylistInfo GetPlaylistFromPath(string fileName)
+        public static PlaylistData GetPlaylistFromPath(string fileName)
         {
             if (!fileName.ToLower().EndsWith(".json"))
                 fileName += ".json";
 
-            string path = (PlaylistInfo.playlistDir + "//" + fileName).Replace("//","\\");
+            string path = (PlaylistData.playlistDir + "//" + fileName).Replace("//","\\");
             if (String.IsNullOrEmpty(path))
                 throw new ArgumentException("Can't get playlist from file, fileName is invalid. fileName: " + path, "path");
 
             if (!File.Exists(path))
                 throw new ArgumentException("Can't get playlist from file, file doesn't exist. Path: " + path, "path");
 
-            PlaylistInfo loadedPlaylist = new PlaylistInfo(fileName);
+            PlaylistData loadedPlaylist = new PlaylistData(fileName);
             return loadedPlaylist;
         }
 
@@ -40,9 +38,14 @@ namespace YouTube_Playlist_Tracker.Wpf
 
             foreach (var item in playlistFiles)
             {
-                PlaylistInfo p = new PlaylistInfo(item.Name);
+                PlaylistData p = new PlaylistData(item.Name);
                 AddPlaylist(p);
             }
+        }
+
+        public void AddPlaylist(PlaylistData playlist)
+        {
+            MainWindow.instance.AddPlaylistToListbox(playlist);
         }
 
         private bool DoPlaylistsExist(out FileInfo[] playlistFiles)
@@ -58,9 +61,15 @@ namespace YouTube_Playlist_Tracker.Wpf
             return true;
         }
 
-        public void AddPlaylist(PlaylistInfo playlist)
+        public void GetPlaylistFromYoutube(string playlistName, string playlistUrl)
         {
-            MainWindow.instance.AddPlaylistToListbox(playlist);
+            PlaylistData p = new PlaylistData(playlistName);
+            p.GetFromYoutube_OnThread(playlistUrl);
+            p.playlistTitle = playlistName;
+            p.SaveToFile();
+
+            AddPlaylist(p);
+            MainWindow.instance.ShowPlaylistVideos(p);
         }
     }
 }

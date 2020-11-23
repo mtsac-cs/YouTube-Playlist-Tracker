@@ -2,6 +2,9 @@
 
 namespace YouTube_Playlist_Tracker.Lib
 {
+    /// <summary>
+    /// This class sends messages to the user
+    /// </summary>
     public class Logger
     {
         #region Properties

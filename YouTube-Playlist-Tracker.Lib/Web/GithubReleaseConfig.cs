@@ -15,7 +15,10 @@ using System.Globalization;
 
 namespace YouTube_Playlist_Tracker.Lib
 {
-    public partial class GitApi
+    /// <summary>
+    /// This class is for converting string text read from Github Releases into a Json Object
+    /// </summary>
+    public partial class GithubReleaseConfig
     {
         [JsonProperty("url")]
         public Uri Url { get; set; }

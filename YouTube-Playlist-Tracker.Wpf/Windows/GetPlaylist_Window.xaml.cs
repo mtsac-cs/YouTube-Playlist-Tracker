@@ -1,7 +1,5 @@
 ﻿using YouTube_Playlist_Tracker.Lib.YouTube;
 using System;
-using System.IO;
-using System.Threading;
 using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Wpf.Windows
@@ -24,26 +22,18 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!YoutubePlaylistAPI.DoesApiFileExist())
+            if (!PlaylistAPI.DoesApiFileExist())
             {
-                YoutubePlaylistAPI.CreateAPIFile();
+                PlaylistAPI.CreateAPIFile();
                 Logger.Log("Paste your api key in the \"api.txt\" file, in the same Directory as this program");
                 return;
             }
 
-            GetPlaylistFromYoutube(PlaylistURL_TextBox.Text);
-        }
-
-        private void GetPlaylistFromYoutube(string playlistUrl)
-        {
-            if (!IsPlaylistUrlValid(playlistUrl))
+            if (!IsPlaylistUrlValid(PlaylistURL_TextBox.Text))
                 return;
 
-            PlaylistInfo p = new PlaylistInfo(PlaylistName_TextBox.Text);
-            p.GetPlaylistFromYoutube(playlistUrl);
-            p.playlistName = PlaylistName_TextBox.Text;
-            MainWindow.instance.AddPlaylistToListbox(p);
-            MainWindow.instance.ShowPlaylistVideos(p.playlistName);
+            Playlists playlists = new Playlists();
+            playlists.GetPlaylistFromYoutube(PlaylistName_TextBox.Text, PlaylistURL_TextBox.Text);
             Close();
         }
 
@@ -68,8 +58,6 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
         {
             Logger.Log(errorMessage);
             MessageBox.Show(errorMessage);
-        }
-
-        
+        }        
     }
 }

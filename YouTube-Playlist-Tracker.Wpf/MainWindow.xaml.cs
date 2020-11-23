@@ -2,8 +2,6 @@
 using YouTube_Playlist_Tracker.Wpf.UserControls;
 using YouTube_Playlist_Tracker.Wpf.Windows;
 using System;
-using System.IO;
-using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,8 +32,6 @@ namespace YouTube_Playlist_Tracker.Wpf
             Logger.Log("Welcome to the YouTube Playlist Tracker");
             allPlaylists.LoadAllPlaylists();
         }
-
-        
         
         private void AddNewPlaylist_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -47,19 +43,20 @@ namespace YouTube_Playlist_Tracker.Wpf
         {
             var playlistButton = sender as Button;
             string playlistName = playlistButton.Content.ToString();
-            ShowPlaylistVideos(playlistName);
+
+            var playlist = GetPlaylistFromTitle(playlistName);
+            ShowPlaylistVideos(playlist);
         }
 
-        public void ShowPlaylistVideos(string playlistName)
+        public void ShowPlaylistVideos(PlaylistData playlist)
         {
             CreatePlaylistViewerIfNull();
-            
-            if (playlistName == lastLoadedPlaylist)
+
+            if (playlist.playlistTitle == lastLoadedPlaylist)
                 return;
 
             playlistViewer.PlaylistViewer.Children.Clear();
-            var playlist = GetPlaylistFromTitle(playlistName);
-            lastLoadedPlaylist = playlistName;
+            lastLoadedPlaylist = playlist.playlistTitle;
             AddPlaylistVideosToListBox(playlist);
         }
 
@@ -73,7 +70,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             }
         }
 
-        private PlaylistInfo GetPlaylistFromTitle(string title)
+        private PlaylistData GetPlaylistFromTitle(string title)
         {
             if (string.IsNullOrEmpty(title))
                 throw new ArgumentException("Can't get playlist from title because title is null", "title");
@@ -82,13 +79,13 @@ namespace YouTube_Playlist_Tracker.Wpf
             return loadedPlaylist;
         }
 
-        public void AddPlaylistToListbox(PlaylistInfo playlist)
+        public void AddPlaylistToListbox(PlaylistData playlist)
         {
             var listBoxItem = CreatePlaylistListBoxItem(playlist);
             Playlist_ListBox.Items.Add(listBoxItem);
         }
 
-        private ListBoxItem CreatePlaylistListBoxItem(PlaylistInfo playlist)
+        private ListBoxItem CreatePlaylistListBoxItem(PlaylistData playlist)
         {
             const int sideMargin = 15;
             Button playlistButton = new Button();
@@ -97,17 +94,18 @@ namespace YouTube_Playlist_Tracker.Wpf
             playlistButton.Foreground = Brushes.Black;
             playlistButton.Click += PlaylistButton_Click;
 
-            playlistButton.Content = playlist.playlistName;
+            playlistButton.Content = playlist.playlistTitle;
 
             ListBoxItem item = new ListBoxItem();
             item.Content = playlistButton;
             return item;
         }
 
-        private void AddPlaylistVideosToListBox(PlaylistInfo playlist)
+        private void AddPlaylistVideosToListBox(PlaylistData playlist)
         {
             int i = 0;
             var videos = playlist.PlaylistVideos;
+            Logger.Log(videos.Count.ToString());
             foreach (var video in videos)
             {
                 i++;
@@ -117,7 +115,7 @@ namespace YouTube_Playlist_Tracker.Wpf
             }
         }
 
-        private ListBoxItem CreateVideoListboxItem(VideoInfo video)
+        private ListBoxItem CreateVideoListboxItem(VideoData video)
         {
             var playlistItem = new PlaylistItem_UserControl();
             playlistItem.videoName = video.Title;

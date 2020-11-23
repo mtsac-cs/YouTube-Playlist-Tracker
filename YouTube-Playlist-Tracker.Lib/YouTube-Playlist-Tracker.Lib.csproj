@@ -49,13 +49,16 @@
     <Compile Include="Guard.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\GitApi.cs" />
+    <Compile Include="Serializer.cs" />
+    <Compile Include="Web\FileDownloader.cs" />
+    <Compile Include="Web\GithubReleaseConfig.cs" />
+    <Compile Include="Web\WebReader.cs" />
     <Compile Include="Web\UpdateHandler.cs" />
-    <Compile Include="Web\WebHandler.cs" />
-    <Compile Include="YouTube\PlaylistInfo.cs" />
-    <Compile Include="YouTube\VideoInfo.cs" />
-    <Compile Include="YouTube\YoutubePlaylistAPI.cs" />
-    <Compile Include="YouTube\YoutubePlaylistConfig.cs" />
+    <Compile Include="YouTube\PlaylistData.cs" />
+    <Compile Include="YouTube\PlaylistWebReader.cs" />
+    <Compile Include="YouTube\VideoData.cs" />
+    <Compile Include="YouTube\PlaylistAPI.cs" />
+    <Compile Include="YouTube\PlaylistConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

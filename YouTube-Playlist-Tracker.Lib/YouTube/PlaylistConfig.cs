@@ -13,7 +13,10 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class YoutubePlaylistConfig
+    /// <summary>
+    /// This class is for converting string text read from Youtube into a Json Object
+    /// </summary>
+    public partial class PlaylistConfig
     {
         [JsonProperty("kind")]
         public string Kind { get; set; }
@@ -121,14 +124,14 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
         public long ResultsPerPage { get; set; }
     }
 
-    public partial class YoutubePlaylistConfig
+    public partial class PlaylistConfig
     {
-        public static YoutubePlaylistConfig FromJson(string json) => JsonConvert.DeserializeObject<YoutubePlaylistConfig>(json, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
+        public static PlaylistConfig FromJson(string json) => JsonConvert.DeserializeObject<PlaylistConfig>(json, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this YoutubePlaylistConfig self) => JsonConvert.SerializeObject(self, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
+        public static string ToJson(this PlaylistConfig self) => JsonConvert.SerializeObject(self, YouTube_Playlist_Tracker.Lib.YouTube.Converter.Settings);
     }
 
     internal static class Converter
