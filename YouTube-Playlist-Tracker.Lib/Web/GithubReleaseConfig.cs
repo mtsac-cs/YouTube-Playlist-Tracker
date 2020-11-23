@@ -15,7 +15,7 @@ using System.Globalization;
 
 namespace YouTube_Playlist_Tracker.Lib
 {
-    public partial class GitApi
+    public partial class GithubReleaseConfig
     {
         [JsonProperty("url")]
         public Uri Url { get; set; }

@@ -24,9 +24,9 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!YoutubePlaylistAPI.DoesApiFileExist())
+            if (!PlaylistAPI.DoesApiFileExist())
             {
-                YoutubePlaylistAPI.CreateAPIFile();
+                PlaylistAPI.CreateAPIFile();
                 Logger.Log("Paste your api key in the \"api.txt\" file, in the same Directory as this program");
                 return;
             }
@@ -39,8 +39,8 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
             if (!IsPlaylistUrlValid(playlistUrl))
                 return;
 
-            PlaylistInfo p = new PlaylistInfo(PlaylistName_TextBox.Text);
-            p.GetPlaylistFromYoutube(playlistUrl);
+            PlaylistData p = new PlaylistData(PlaylistName_TextBox.Text);
+            p.GetFromYoutube_OnThread(playlistUrl);
             p.playlistName = PlaylistName_TextBox.Text;
             MainWindow.instance.AddPlaylistToListbox(p);
             MainWindow.instance.ShowPlaylistVideos(p.playlistName);

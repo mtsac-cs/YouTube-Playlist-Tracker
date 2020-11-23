@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using YouTube_Playlist_Tracker.Lib.Web;
+using System.Threading.Tasks;
 
 namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
-    public class YoutubePlaylistAPI
+    public class PlaylistAPI
     {
         private string APIKey;
         private string playListID;
         private const int videoListSize = 50;
         public static string apiKeyFilePath = Environment.CurrentDirectory + "\\api.txt";
 
-        internal YoutubePlaylistAPI(string playListURL = "")
+        internal PlaylistAPI(string playListURL)
         {
             APIKey = GetAPIKeyFromFile();
             SetPlaylistID(playListURL);
         }
 
-        public static bool DoesApiFileExist()
-        {
-            return File.Exists(apiKeyFilePath);
-        }
+        public static bool DoesApiFileExist() => File.Exists(apiKeyFilePath);
+        public static void CreateAPIFile() => File.Create(apiKeyFilePath);
+        internal void SetPlaylistID(string url) => playListID = GetPlaylistIDFromURL(url);
 
         private string GetAPIKeyFromFile()
         {
@@ -35,16 +36,6 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
             return text;
         }
 
-        public static void CreateAPIFile()
-        {
-            File.Create(apiKeyFilePath);
-        }
-
-        internal void SetPlaylistID(string url)
-        {
-            playListID = GetPlaylistIDFromURL(url);
-        }
-
         private string GetPlaylistIDFromURL(string url)
         {
             //PlayList ID is everything after the equal sign
@@ -53,57 +44,27 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
             
             const int playlistIDLength = 34;
             if (playlistId.Length != playlistIDLength)
-                throw new Exception("Playlist ID is not the correct length. It's must be 34 char long. Length: " + playListID.Length);
+                throw new Exception("Playlist ID must be 34 char long. Current length: " + playListID.Length);
 
             return playlistId;
         }
 
 
-        /// <summary>
-        /// Create PlaylistInfo by using a playlist's url and YouTube API
-        /// </summary>
-        /// <returns></returns>
-        internal PlaylistInfo GetPlaylistInfo()
+        private bool CanGetPlaylistFromJSON()
         {
-            var playlistConfig = CreatePlaylistConfig();
-            if (playlistConfig is null)
-                return null;
+            if (String.IsNullOrEmpty(playListID))
+                return false;
 
-            var videos = GetVideosInPlaylist(playlistConfig);
-
-            PlaylistInfo playlistInfo = new PlaylistInfo();
-            playlistInfo.PlaylistVideos = videos;
-            playlistInfo.playlistID = playlistConfig.Items[0].Snippet.PlaylistId;
-            return playlistInfo;
-        }
-
-        private List<VideoInfo> GetVideosInPlaylist(YoutubePlaylistConfig playlistConfig)
-        {
-            Guard.ThrowIfArgumentIsNull(playlistConfig, "Can't get videos in playlist, playlistConfig is null", "playlistConfig");
-
-            List<VideoInfo> videos = new List<VideoInfo>();
-            foreach (var item in playlistConfig.Items)
+            if (string.IsNullOrEmpty(APIKey))
             {
-                VideoInfo video = new VideoInfo();
-                video.Title = item.Snippet.Title;
-                video.IndexInPlaylist = (int)item.Snippet.Position;
-                video.Description = "not implemented yet";
-                videos.Add(video);
+                Logger.Log("You need to put your api key in \"api.txt\", located in the same folder as this program");
+                return false;
             }
 
-            return videos;
+            return true;
         }
 
-        private YoutubePlaylistConfig CreatePlaylistConfig()
-        {
-            string json = GetPlaylistJSONFromID();
-            if (String.IsNullOrEmpty(json))
-                return null;
-
-            return YoutubePlaylistConfig.FromJson(json);
-        }
-
-        private string GetPlaylistJSONFromID()
+        internal string GetJsonFromYouTube()
         {
             if (!CanGetPlaylistFromJSON())
                 return null;
@@ -125,27 +86,13 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
             //Create full URL with API key
             var fullUrl = MakeUrlWithQuery(parameters);
 
-            WebHandler webHandler = new WebHandler();
-            string json = webHandler.ReadText_FromURL(fullUrl);
+            WebReader webReader = new WebReader();
+            string json = null;
+
+            json = webReader.ReadText_FromURL(fullUrl);
             return json;
         }
 
-        private bool CanGetPlaylistFromJSON()
-        {
-            if (string.IsNullOrEmpty(APIKey))
-            {
-                Logger.Log("You need to put your api key in \"api.txt\", located in the same folder as this program");
-                return false;
-            }
-
-            if (String.IsNullOrEmpty(playListID))
-            {
-                Logger.Log("This program needs the playlistID in order to get playlist from YT");
-                return false;
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Use parameters to get playlist url. Needed to apply API key and sort through YT's video hierarchy

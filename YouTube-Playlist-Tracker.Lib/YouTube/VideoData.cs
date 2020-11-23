@@ -1,6 +1,6 @@
 ﻿namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
-    public class VideoInfo
+    public class VideoData
     {
         public int IndexInPlaylist { get; set; }
         public string ParentPlaylist { get; set; }
