@@ -1,5 +1,8 @@
 ﻿namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
+    /// <summary>
+    /// This class stores info about the videos in the playlist
+    /// </summary>
     public class VideoData
     {
         public int IndexInPlaylist { get; set; }

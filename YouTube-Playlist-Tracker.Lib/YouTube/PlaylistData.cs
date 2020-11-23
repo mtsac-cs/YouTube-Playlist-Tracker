@@ -6,6 +6,9 @@ using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
+    /// <summary>
+    /// This is the Playlist class. All playlist info is here
+    /// </summary>
     public class PlaylistData
     {
         private string fileName;

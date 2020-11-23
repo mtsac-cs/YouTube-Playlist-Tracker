@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace YouTube_Playlist_Tracker.Lib.YouTube
 {
+    /// <summary>
+    /// This class uses API Key to get string text about playlist
+    /// </summary>
     public class PlaylistAPI
     {
         private string APIKey;

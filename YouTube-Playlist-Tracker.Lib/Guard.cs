@@ -3,6 +3,9 @@ using System.Net;
 
 namespace YouTube_Playlist_Tracker.Lib
 {
+    /// <summary>
+    /// This class contians common checks used throught the code
+    /// </summary>
     public static class Guard
     {
         /// <summary>

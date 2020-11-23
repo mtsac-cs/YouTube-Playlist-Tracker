@@ -5,6 +5,9 @@ using System.Windows;
 
 namespace YouTube_Playlist_Tracker.Lib
 {
+    /// <summary>
+    /// This class saves other classes to json file
+    /// </summary>
     public static class Serializer
     {
         public static T LoadFromFile<T>(string filePath) where T : class

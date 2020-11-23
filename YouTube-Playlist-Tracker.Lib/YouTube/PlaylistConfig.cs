@@ -13,6 +13,9 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
+    /// <summary>
+    /// This class is for converting string text read from Youtube into a Json Object
+    /// </summary>
     public partial class PlaylistConfig
     {
         [JsonProperty("kind")]
