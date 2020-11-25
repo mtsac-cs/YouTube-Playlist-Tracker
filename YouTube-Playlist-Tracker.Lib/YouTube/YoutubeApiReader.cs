@@ -22,7 +22,7 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
 
         internal List<VideoData> GetVideosInPlaylist(PlaylistConfig playlistConfig)
         {
-            Guard.ThrowIfArgumentIsNull(playlistConfig, "Can't get videos in playlist, playlistConfig is null", "playlistConfig");
+            Guard.ThrowIfArgumentIsNull(playlistConfig, "playlistConfig", "Can't get videos in playlist, playlistConfig is null");
 
             List<VideoData> videos = new List<VideoData>();
             foreach (var item in playlistConfig.Items)

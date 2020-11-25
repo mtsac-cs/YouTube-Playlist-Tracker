@@ -32,7 +32,7 @@ namespace YouTube_Playlist_Tracker.Lib
 
         public static void SaveToFile<T>(T jsonObject, string savePath, bool overwriteExisting = true) where T : class
         {
-            Guard.ThrowIfArgumentIsNull(savePath, "Can't save file, save path is null", "savePath");
+            Guard.ThrowIfArgumentIsNull(savePath, "savePath", "Can't save file, save path is null");
             CreateDirIfNotFound(savePath);
             string json = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
 

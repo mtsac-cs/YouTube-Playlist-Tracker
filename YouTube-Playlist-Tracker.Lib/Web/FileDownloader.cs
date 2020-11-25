@@ -15,8 +15,8 @@ namespace YouTube_Playlist_Tracker.Lib.Web
         /// </summary>
         public void DownloadFile(string url, string dest)
         {
-            Guard.ThrowIfArgumentIsNull(url, "Can't download file, URL is null", "url");
-            Guard.ThrowIfArgumentIsNull(dest, "Can't download file, destination is null", "dest");
+            Guard.ThrowIfArgumentIsNull(url, "url", "Can't download file, URL is null");
+            Guard.ThrowIfArgumentIsNull(dest, "dest", "Can't download file, destination is null");
 
             dest += GetFilenameFromURL(url);
             string tempDir = CreateTempDir();

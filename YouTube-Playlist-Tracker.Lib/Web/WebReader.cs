@@ -13,7 +13,7 @@ namespace YouTube_Playlist_Tracker.Lib.Web
         /// </summary>
         public string ReadText_FromURL(string url)
         {
-            Guard.ThrowIfArgumentIsNull(url, "Can't read text from url. Url argument is null", "url");
+            Guard.ThrowIfArgumentIsNull(url, "url", "Can't read text from url. Url argument is null");
             var webClient = CreateWebClient();
 
             string downloadedText = "";
