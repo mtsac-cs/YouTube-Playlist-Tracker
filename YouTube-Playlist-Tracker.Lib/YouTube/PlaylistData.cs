@@ -66,7 +66,7 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
         /// </summary>
         public PlaylistData GetFromYoutube(string url)
         {
-            PlaylistWebReader reader = new PlaylistWebReader(url);
+            YoutubeApiReader reader = new YoutubeApiReader(url);
             var config = reader.GetPlaylistConfig();
 
             PlaylistVideos = reader.GetVideosInPlaylist(config);

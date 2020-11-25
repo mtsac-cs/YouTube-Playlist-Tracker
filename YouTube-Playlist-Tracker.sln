@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTube-Playlist-Tracker.Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTube-Playlist-Tracker.Wpf", "YouTube-Playlist-Tracker.Wpf\YouTube-Playlist-Tracker.Wpf.csproj", "{198E75D5-6D7F-4979-8FB8-BBCD6EB90F41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTube-Playlist-Tracker.Lib.Tests", "YouTube-Playlist-Tracker.Lib.Tests\YouTube-Playlist-Tracker.Lib.Tests.csproj", "{28B57A3D-5274-42D7-A25A-3C05623849B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{198E75D5-6D7F-4979-8FB8-BBCD6EB90F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{198E75D5-6D7F-4979-8FB8-BBCD6EB90F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{198E75D5-6D7F-4979-8FB8-BBCD6EB90F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B57A3D-5274-42D7-A25A-3C05623849B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B57A3D-5274-42D7-A25A-3C05623849B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B57A3D-5274-42D7-A25A-3C05623849B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B57A3D-5274-42D7-A25A-3C05623849B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

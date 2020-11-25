@@ -55,9 +55,9 @@
     <Compile Include="Web\WebReader.cs" />
     <Compile Include="Web\UpdateHandler.cs" />
     <Compile Include="YouTube\PlaylistData.cs" />
-    <Compile Include="YouTube\PlaylistWebReader.cs" />
+    <Compile Include="YouTube\YoutubeApiReader.cs" />
     <Compile Include="YouTube\VideoData.cs" />
-    <Compile Include="YouTube\PlaylistAPI.cs" />
+    <Compile Include="YouTube\YoutubeApi.cs" />
     <Compile Include="YouTube\PlaylistConfig.cs" />
   </ItemGroup>
   <ItemGroup>

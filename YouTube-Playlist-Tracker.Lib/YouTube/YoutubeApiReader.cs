@@ -5,17 +5,17 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
     /// <summary>
     /// This class interacts with PlaylistAPI to get usable info from it
     /// </summary>
-    public class PlaylistWebReader
+    public class YoutubeApiReader
     {
         readonly string url;
-        public PlaylistWebReader(string url)
+        public YoutubeApiReader(string url)
         {
             this.url = url;
         }
 
         internal PlaylistConfig GetPlaylistConfig()
         {
-            PlaylistAPI api = new PlaylistAPI(url);
+            YoutubeApi api = new YoutubeApi(url);
             string json = api.GetJsonFromYouTube();
             return PlaylistConfig.FromJson(json);
         }

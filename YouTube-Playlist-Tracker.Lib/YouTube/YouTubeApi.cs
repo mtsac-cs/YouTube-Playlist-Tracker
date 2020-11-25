@@ -10,14 +10,14 @@ namespace YouTube_Playlist_Tracker.Lib.YouTube
     /// This class uses API Key to get string text about playlist
     /// Much of this code was inspired by this Youtube Tutorial: https://www.youtube.com/watch?v=gRXE8QkFqtU
     /// </summary>
-    public class PlaylistAPI
+    public class YoutubeApi
     {
         private string APIKey;
         private string playListID;
         private const int videoListSize = 50;
         public static string apiKeyFilePath = Environment.CurrentDirectory + "\\api.txt";
 
-        internal PlaylistAPI(string playListURL)
+        internal YoutubeApi(string playListURL)
         {
             APIKey = GetAPIKeyFromFile();
             SetPlaylistID(playListURL);

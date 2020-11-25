@@ -22,9 +22,9 @@ namespace YouTube_Playlist_Tracker.Wpf.Windows
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!PlaylistAPI.DoesApiFileExist())
+            if (!YoutubeApi.DoesApiFileExist())
             {
-                PlaylistAPI.CreateAPIFile();
+                YoutubeApi.CreateAPIFile();
                 Logger.Log("Paste your api key in the \"api.txt\" file, in the same Directory as this program");
                 return;
             }

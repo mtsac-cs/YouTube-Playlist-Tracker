@@ -51,7 +51,7 @@ namespace YouTube_Playlist_Tracker.Lib.Web
         private string CreateDownloadFolder(string dest)
         {
             FileInfo fileInfo = new FileInfo(dest);
-            var destDir = fileInfo.FullName.Replace(fileInfo.Name, "");
+            var destDir = fileInfo.DirectoryName;
             Directory.CreateDirectory(destDir);
 
             return destDir;
